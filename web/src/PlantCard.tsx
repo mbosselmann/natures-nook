@@ -9,7 +9,7 @@ const PlantCard = ({ plant }: { plant: Plant }) => {
         <p>{plant.scientific_name}</p>
       </div>
       <p className="card__description">{plant.description}</p>
-      <section className="card__section">
+      {/* <section className="card__section">
         <div>
           <h3>Light requirements:</h3>
           <ul>
@@ -31,8 +31,8 @@ const PlantCard = ({ plant }: { plant: Plant }) => {
             ))}
           </ul>
         </div>
-      </section>
-      <ul>
+      </section> */}
+      <ul className="card__tags">
         {plant.tags.map((tag) => {
           return <li key={tag}>{tag}</li>;
         })}

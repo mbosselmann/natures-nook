@@ -20,41 +20,52 @@ services:
     volumes:
       - ./catalog:/app
     working_dir: /app
-    command: ["node", "index.js"]
+    command: ["npm", "run", "start:dev"]
     networks:
       - nook-net
+    depends_on:
+      - kafka
 
   inventory:
     image: node:20-alpine
     volumes:
       - ./inventory:/app
     working_dir: /app
-    command: ["tail", "-f", "/dev/null"]
+    command: ["npm", "run", "start:dev"]
     networks:
       - nook-net
+    depends_on:
+      - kafka
 
   kafka:
     image: confluentinc/cp-kafka:7.6.0
+    depends_on:
+      - zookeeper
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:4003"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "BROKER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_STANDBY_REPLICAS: 1
+      KAFKA_CONTROLLED_SHUTDOWN_ENABLE: "true"
     volumes:
       - "kafka_data:/var/lib/kafka/data"
       - "kafka_secrets:/var/lib/kafka/secrets"
     ports:
       - "4002:9093"
+    networks:
+      - nook-net
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.6.0
     environment:
-      ZOOKEEPER_CLIENT_PORT: 4003
+      ZOOKEEPER_CLIENT_PORT: "4003"
     volumes:
       - "zookeeper_data:/var/lib/zookeeper/data"
       - "zookeeper_logs:/var/lib/zookeeper/logs"
       - "zookeeper_secrets:/var/lib/zookeeper/secrets"
+    networks:
+      - nook-net
 
   kafka-ui:
     image: provectuslabs/kafka-ui
@@ -65,6 +76,10 @@ services:
       - KAFKA_CLUSTERS_0_NAME=local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
       - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:4003
+    networks:
+      - nook-net
+    depends_on:
+      - kafka
 
 volumes:
   kafka_data:
