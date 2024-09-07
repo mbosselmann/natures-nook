@@ -1,0 +1,78 @@
+services:
+  caddy:
+    image: caddy:latest
+    ports:
+      - "80:80" # Expose only Caddy on port 80 (removed from web)
+    volumes:
+      - ./caddy:/etc/caddy
+    networks:
+      - nook-net
+
+  web:
+    image: nginx:alpine
+    volumes:
+      - ./web/dist:/usr/share/nginx/html
+    networks:
+      - nook-net
+
+  catalog:
+    image: node:20-alpine
+    volumes:
+      - ./catalog:/app
+    working_dir: /app
+    command: ["node", "index.js"]
+    networks:
+      - nook-net
+
+  inventory:
+    image: node:20-alpine
+    volumes:
+      - ./inventory:/app
+    working_dir: /app
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      - nook-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:4003"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "BROKER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_STANDBY_REPLICAS: 1
+    volumes:
+      - "kafka_data:/var/lib/kafka/data"
+      - "kafka_secrets:/var/lib/kafka/secrets"
+    ports:
+      - "4002:9093"
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 4003
+    volumes:
+      - "zookeeper_data:/var/lib/zookeeper/data"
+      - "zookeeper_logs:/var/lib/zookeeper/logs"
+      - "zookeeper_secrets:/var/lib/zookeeper/secrets"
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    ports:
+      - "5001:8080"
+    restart: always
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:4003
+
+volumes:
+  kafka_data:
+  kafka_secrets:
+  zookeeper_data:
+  zookeeper_logs:
+  zookeeper_secrets:
+
+networks:
+  nook-net:
+    driver: bridge
