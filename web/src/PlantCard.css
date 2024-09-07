@@ -11,7 +11,7 @@ ul > li > * {
   grid-template-rows: 5rem 1fr 4rem;
   gap: 0.1rem;
   border-radius: 1rem;
-  box-shadow: 0 0 1em #7f917262;
+  box-shadow: 0 0 1em #7f917282;
 }
 
 .card__header {

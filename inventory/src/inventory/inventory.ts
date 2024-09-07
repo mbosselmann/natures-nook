@@ -1,7 +1,9 @@
+import { Size } from './inventory.service';
+
 type Inventory = {
   id: number;
   catalogId: number;
-  size: string;
+  size: Size;
 };
 
 export const inventory: Inventory[] = [
