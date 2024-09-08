@@ -4,6 +4,8 @@
 
 # Route traffic  to service 1 for service 1 path
 :80 {
+
+
     handle /catalog/* {
         reverse_proxy catalog:3000
     }
@@ -15,6 +17,6 @@
     # Optionally handle a root request or any other route
 
     handle {
-        reverse_proxy web:80
+        reverse_proxy web:5173
     }
 }
