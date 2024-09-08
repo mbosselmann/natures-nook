@@ -29,6 +29,23 @@ export class CatalogService implements OnModuleInit {
     }));
   }
 
+  getPlantById(id: number) {
+    const plant = catalog.find((plant) => plant.id === id);
+    if (!plant) {
+      return null;
+    }
+
+    return {
+      ...plant,
+      sizes: plant.sizes.map((size) => ({
+        ...size,
+        amount: Object.values(inventory).filter(
+          (item) => item.id === plant.id && item.size === size.size,
+        ).length,
+      })),
+    };
+  }
+
   onModuleInit() {
     this.kafkaService.consume('data.inventory', (message) => {
       const { id: inventoryId, catalogId: id, size } = JSON.parse(message);

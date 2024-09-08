@@ -9,29 +9,6 @@ const PlantCard = ({ plant }: { plant: Plant }) => {
         <p>{plant.scientific_name}</p>
       </div>
       <p className="card__description">{plant.description}</p>
-      {/* <section className="card__section">
-        <div>
-          <h3>Light requirements:</h3>
-          <ul>
-            {plant.light_requirements.map((light) => (
-              <li key={light}>{light}</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3>Sizes:</h3>
-          <ul>
-            {plant.sizes.map((size, index) => (
-              <li key={index}>
-                <h4>
-                  {size.height} - {size.size}
-                </h4>
-                <p>{size.price}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section> */}
       <ul className="card__tags">
         {plant.tags.map((tag) => {
           return <li key={tag}>{tag}</li>;
