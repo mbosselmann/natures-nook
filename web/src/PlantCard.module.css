@@ -18,6 +18,7 @@ ul > li > * {
   background: #567568;
   color: #fff;
   width: 100%;
+  text-align: center;
   border-radius: 1rem 1rem 0 0;
 }
 
