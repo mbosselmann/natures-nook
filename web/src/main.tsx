@@ -11,9 +11,15 @@ import ErrorPage from "./Error.tsx";
 import PlantDetailsPage from "./routes/plant.tsx";
 
 import { plantLoader } from "./loader/plantLoader";
+import { plantsLoader } from "./loader/plantsLoader";
 
 const router = createBrowserRouter([
-  { path: "/", element: <App />, errorElement: <ErrorPage /> },
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <ErrorPage />,
+    loader: plantsLoader as unknown as LoaderFunction,
+  },
   {
     path: "/plant/:id",
     element: <PlantDetailsPage />,
