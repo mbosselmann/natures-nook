@@ -4,10 +4,6 @@
   text-align: center;
 }
 
-li {
-  list-style: none;
-}
-
 .headline {
   font-size: 2rem;
   font-weight: 700;
@@ -21,4 +17,5 @@ li {
   grid-gap: 1rem;
   padding: 0.5rem;
   max-width: 800px;
+  list-style-type: none;
 }

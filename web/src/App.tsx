@@ -28,7 +28,9 @@ function App() {
       <h1 className={styles["headline"]}> Nature's Nook</h1>
       <ul className={styles["plant-list-grid"]}>
         {catalog.map((plant) => (
-          <PlantCard key={plant.id} plant={plant} />
+          <li key={plant.id}>
+            <PlantCard plant={plant} />
+          </li>
         ))}
       </ul>
     </main>
