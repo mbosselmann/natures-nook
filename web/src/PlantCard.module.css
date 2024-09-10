@@ -32,6 +32,11 @@ ul > li > * {
   font-weight: 700;
 }
 
+.card__description_facts {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card__section {
   width: 100%;
   display: flex;

@@ -1,6 +1,7 @@
 import { Plant } from "./App";
 import styles from "./PlantDetails.module.css";
-import plantUrl from "./assets/plant.svg";
+import plantUrl from "./assets/green-plant.webp";
+import backgroundUrl from "./assets/plant copy.svg";
 
 export default function PlantDetailsPage({ plant }: { plant: Plant }) {
   return (
@@ -9,8 +10,7 @@ export default function PlantDetailsPage({ plant }: { plant: Plant }) {
         <h1>{plant.name}</h1>
       </header>
       <img
-        className={styles["image"]}
-        width="300"
+        className={styles["plant-image"]}
         height="200"
         src={plantUrl}
         alt={plant.name}
@@ -49,6 +49,13 @@ export default function PlantDetailsPage({ plant }: { plant: Plant }) {
           })}
         </ul>
       </section>
+      <img
+        className={styles["image"]}
+        width="300"
+        height="200"
+        src={backgroundUrl}
+        alt=""
+      />
     </main>
   );
 }
