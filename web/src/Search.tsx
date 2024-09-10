@@ -1,48 +1,183 @@
+import { FormEvent, useState } from "react";
+import styles from "./Search.module.css";
+
+const tags = [
+  "Air Purifying",
+  "Low Maintenance",
+  "Drought Tolerant",
+  "Pet Friendly",
+  "Fast Growing",
+  "Flowering",
+  "Shade Tolerant",
+  "Medicinal",
+  "Succulent",
+  "Tropical",
+  "Statement Plant",
+  "Decorative",
+  "Classic",
+  "Easy Care",
+  "Colorful",
+  "No Soil",
+  "Unique Texture",
+  "Trailing",
+  "Unique Form",
+  "Holiday Plant",
+];
+
 export default function Search() {
+  const [selectedSearchParams, setSelectedSearchParams] = useState({
+    searchTerm: "",
+    order: "",
+    careLevel: [],
+    categories: [],
+  });
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const action = (event.nativeEvent as SubmitEvent)
+      .submitter as HTMLButtonElement;
+
+    if (action.name === "reset") {
+      console.log("Clearing...");
+      (event.target as HTMLFormElement).reset();
+    }
+  }
+
   return (
-    <>
-      <form>
+    <form onSubmit={handleSubmit} className={styles["form"]}>
+      <fieldset className={styles["fieldset"]}>
+        <legend className={styles["legend"]}>
+          Looking for a specific plant? Search here!
+        </legend>
         <label htmlFor="searchTerm"> Search by plant name:</label>
-        <input id="searchTerm" type="text" />
-        <button type="submit">Search</button>
-      </form>
-      <section>
-        <label htmlFor="sort">Sort by:</label>
-        <select>
-          <option value="">None</option>
-          <option value="price">Price</option>
-          <option value="name">Name</option>
-          <option value="scientific-name">Scientific name</option>
-          <option value="care">Care Level</option>
-        </select>
-        <label htmlFor="care-level">Care Level</label>
-        <select id="care-level">
-          <option value="">None</option>
-          <option value="Easy">Easy</option>
-          <option value="Moderate">Moderate</option>
-          <option value="Challenging">Challenging</option>
-        </select>
-        <label htmlFor="tags">Tags</label>
-        <select id="tags">
-          <option value="">None</option>
-          <option value="Air Purifying">Air Purifying</option>
-          <option value="Classic">Classic</option>
-          <option value="Colorful">Colorful</option>
-          <option value="Decorative">Decorative</option>
-          <option value="Drought Tolerant">Drought Tolerant</option>
-          <option value="Easy Care">Easy Care</option>
-          <option value="Fast Growing">Fast Growing</option>
-          <option value="Flowering">Flowering</option>
-          <option value="Low Maintenance">Low Maintenance</option>
-          <option value="Medicinal">Medicinal</option>
-          <option value="No Soil">No Soil</option>
-          <option value="Pet Friendly">Pet Friendly</option>
-          <option value="Shade Tolerant">Shade Tolerant</option>
-          <option value="Statement Plant">Statement Plant</option>
-          <option value="Succulent">Succulent</option>
-          <option value="Tropical">Tropical</option>
-        </select>
-      </section>
-    </>
+        <input
+          id="searchTerm"
+          type="text"
+          onChange={(event) =>
+            setSelectedSearchParams({
+              ...selectedSearchParams,
+              searchTerm: event.target.value,
+            })
+          }
+        />
+        <button className={styles["button"]} type="submit" name="search">
+          Search
+        </button>
+      </fieldset>
+      <fieldset className={`${styles["fieldset"]} ${styles["fieldset-flex"]}`}>
+        <legend className={styles["legend"]}>Order by:</legend>
+        <div>
+          <label className={`${styles["label"]} ${styles["order-label"]}`}>
+            <input
+              className={styles["input-hidden"]}
+              type="radio"
+              name="order"
+              value="nameasc"
+            />
+            Name (A-Z)
+          </label>
+          <label className={`${styles["label"]} ${styles["order-label"]}`}>
+            <input
+              className={styles["input-hidden"]}
+              type="radio"
+              name="order"
+              value="namedesc"
+            />
+            Name (Z-A)
+          </label>
+        </div>
+        <div>
+          <label className={`${styles["label"]} ${styles["order-label"]}`}>
+            <input
+              className={styles["input-hidden"]}
+              type="radio"
+              name="order"
+              value="scientificasc"
+            />
+            Scientific Name (A-Z)
+          </label>
+          <label className={`${styles["label"]} ${styles["order-label"]}`}>
+            <input
+              className={styles["input-hidden"]}
+              type="radio"
+              name="order"
+              value="scientificdesc"
+            />
+            Scientific Name (Z-A)
+          </label>
+        </div>
+        <div>
+          <label className={`${styles["label"]} ${styles["order-label"]}`}>
+            <input
+              className={styles["input-hidden"]}
+              type="radio"
+              name="order"
+              value="priceasc"
+            />
+            Price ASC
+          </label>
+          <label className={`${styles["label"]} ${styles["order-label"]}`}>
+            <input
+              className={styles["input-hidden"]}
+              type="radio"
+              name="order"
+              value="pricedesc"
+            />
+            Price DESC
+          </label>
+        </div>
+      </fieldset>
+      <fieldset className={`${styles["fieldset"]} ${styles["fieldset-flex"]}`}>
+        <legend className={styles["legend"]}>Filtey by Care Level</legend>
+        <label className={`${styles["label"]} ${styles["care-label"]}`}>
+          <input
+            className={styles["input-hidden"]}
+            type="checkbox"
+            value="Easy"
+          />
+          Easy
+        </label>
+        <label className={`${styles["label"]} ${styles["care-label"]}`}>
+          <input
+            className={styles["input-hidden"]}
+            type="checkbox"
+            value="Moderate"
+          />
+          Moderate
+        </label>
+        <label className={`${styles["label"]} ${styles["care-label"]}`}>
+          <input
+            className={styles["input-hidden"]}
+            type="checkbox"
+            value="Challenging"
+          />
+          Challenging
+        </label>
+      </fieldset>
+      <fieldset className={`${styles["fieldset"]} ${styles["fieldset-flex"]}`}>
+        <legend className={styles["legend"]}>Filter by Categories</legend>
+        {tags.map((tag) => (
+          <label key={tag} className={styles["label"]}>
+            <input
+              className={styles["input-hidden"]}
+              type="checkbox"
+              value={tag}
+            />
+            {tag}
+          </label>
+        ))}
+      </fieldset>
+      <div className={styles["button-container"]}>
+        <button className={styles["button"]} type="submit" name="filter">
+          Filter
+        </button>
+        <button
+          className={`${styles["button"]} ${styles["button-clear"]}`}
+          type="submit"
+          name="reset"
+        >
+          Clear
+        </button>
+      </div>
+    </form>
   );
 }

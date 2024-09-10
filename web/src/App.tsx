@@ -1,6 +1,8 @@
 import styles from "./App.module.css";
 import PlantCard from "./PlantCard";
 import { useLoaderData } from "react-router-dom";
+import AppHeader from "./AppHeader";
+import { useEffect, useState } from "react";
 
 export type Plant = {
   id: number;
@@ -20,12 +22,25 @@ export type Plant = {
   tags: string[];
 };
 
-function App() {
+export default function App() {
   const { plants: catalog } = useLoaderData() as { plants: Plant[] };
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  function handleOpenSearch() {
+    setIsSearchOpen(!isSearchOpen);
+  }
+
+  useEffect(() => {
+    if (isSearchOpen) {
+      document.body.classList.add(styles["no-scroll"]);
+    } else {
+      document.body.classList.remove(styles["no-scroll"]);
+    }
+  }, [isSearchOpen]);
 
   return (
-    <main>
-      <h1 className={styles["headline"]}> Nature's Nook</h1>
+    <main className={styles["main"]}>
+      <AppHeader isSearchOpen={isSearchOpen} onOpenSearch={handleOpenSearch} />
       <ul className={styles["plant-list-grid"]}>
         {catalog.map((plant) => (
           <li key={plant.id}>
@@ -36,5 +51,3 @@ function App() {
     </main>
   );
 }
-
-export default App;
