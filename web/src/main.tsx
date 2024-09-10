@@ -5,24 +5,14 @@ import "./index.css";
 import {
   createBrowserRouter,
   LoaderFunction,
-  Outlet,
   RouterProvider,
-  ScrollRestoration,
 } from "react-router-dom";
 import ErrorPage from "./Error.tsx";
 import PlantDetailsPage from "./routes/plant.tsx";
 
 import { plantLoader } from "./loader/plantLoader";
 import { plantsLoader } from "./loader/plantsLoader";
-
-const AppLayout = () => {
-  return (
-    <>
-      <ScrollRestoration />
-      <Outlet />
-    </>
-  );
-};
+import { AppLayout } from "./AppLayout.tsx";
 
 const router = createBrowserRouter([
   {
