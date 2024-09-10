@@ -566,4 +566,507 @@ export const catalog: Plant[] = [
     ],
     tags: ['Low Maintenance', 'Tropical', 'Air Purifying'],
   },
+  {
+    id: 24,
+    name: 'Echeveria',
+    scientific_name: 'Echeveria elegans',
+    description:
+      'A rosette-forming succulent with fleshy, spoon-shaped leaves that come in various colors.',
+    light_requirements: ['Full sun', 'Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 6.99,
+        height: '3-5 inches',
+      },
+      {
+        size: 'Medium',
+        price: 11.99,
+        height: '6-8 inches',
+      },
+    ],
+    tags: ['Drought Tolerant', 'Colorful', 'Low Maintenance'],
+  },
+  {
+    id: 25,
+    name: 'Haworthia',
+    scientific_name: 'Haworthia fasciata',
+    description:
+      'A small succulent with fleshy, dark green leaves that are banded with white, zebra-like stripes.',
+    light_requirements: ['Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Easy',
+    sizes: [
+      {
+        size: 'Small',
+        price: 5.99,
+        height: '2-4 inches',
+      },
+      {
+        size: 'Medium',
+        price: 10.99,
+        height: '5-7 inches',
+      },
+    ],
+    tags: ['Pet Friendly', 'Low Maintenance', 'Drought Tolerant'],
+  },
+  {
+    id: 26,
+    name: 'Panda Plant',
+    scientific_name: 'Kalanchoe tomentosa',
+    description:
+      'A unique succulent with fuzzy, silvery-green leaves edged with brown.',
+    light_requirements: ['Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 7.99,
+        height: '4-6 inches',
+      },
+      {
+        size: 'Medium',
+        price: 12.99,
+        height: '8-10 inches',
+      },
+    ],
+    tags: ['Unique Texture', 'Low Maintenance', 'Drought Tolerant'],
+  },
+  {
+    id: 27,
+    name: 'Sedum',
+    scientific_name: 'Sedum morganianum',
+    description:
+      'A trailing succulent with long, hanging stems covered in small, fleshy leaves.',
+    light_requirements: ['Full sun', 'Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 8.99,
+        height: '6-8 inches',
+      },
+      {
+        size: 'Medium',
+        price: 14.99,
+        height: '10-12 inches',
+      },
+    ],
+    tags: ['Trailing', 'Drought Tolerant', 'Low Maintenance'],
+  },
+  {
+    id: 28,
+    name: 'String of Pearls',
+    scientific_name: 'Senecio rowleyanus',
+    description:
+      'A trailing succulent with spherical, bead-like leaves that resemble a string of pearls.',
+    light_requirements: ['Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 9.99,
+        height: '4-6 inches',
+      },
+      {
+        size: 'Medium',
+        price: 15.99,
+        height: '8-10 inches',
+      },
+    ],
+    tags: ['Trailing', 'Unique Form', 'Low Maintenance'],
+  },
+  {
+    id: 29,
+    name: 'Zebra Plant',
+    scientific_name: 'Haworthiopsis attenuata',
+    description:
+      'A small succulent with thick, dark green leaves adorned with white horizontal stripes.',
+    light_requirements: ['Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Easy',
+    sizes: [
+      {
+        size: 'Small',
+        price: 5.99,
+        height: '3-5 inches',
+      },
+      {
+        size: 'Medium',
+        price: 9.99,
+        height: '6-8 inches',
+      },
+    ],
+    tags: ['Pet Friendly', 'Low Maintenance', 'Drought Tolerant'],
+  },
+  {
+    id: 30,
+    name: 'Christmas Cactus',
+    scientific_name: 'Schlumbergera bridgessii',
+    description:
+      'A popular holiday plant with segmented, flat stems and bright, tubular flowers.',
+    light_requirements: ['Bright indirect light'],
+    water_requirements: 'Water every 1-2 weeks; keep soil slightly moist.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 7.99,
+        height: '6-8 inches',
+      },
+      {
+        size: 'Medium',
+        price: 12.99,
+        height: '10-14 inches',
+      },
+    ],
+    tags: ['Flowering', 'Pet Friendly', 'Holiday Plant'],
+  },
+  {
+    id: 31,
+    name: 'Burro’s Tail',
+    scientific_name: 'Sedum burrito',
+    description:
+      'A trailing succulent with fleshy, plump leaves that form long, cascading stems.',
+    light_requirements: ['Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 8.99,
+        height: '4-6 inches',
+      },
+      {
+        size: 'Medium',
+        price: 13.99,
+        height: '8-12 inches',
+      },
+    ],
+    tags: ['Trailing', 'Unique Form', 'Drought Tolerant'],
+  },
+  {
+    id: 32,
+    name: 'Ghost Plant',
+    scientific_name: 'Graptopetalum paraguayense',
+    description:
+      'A rosette-forming succulent with pale gray to pinkish leaves that form a lovely trailing plant.',
+    light_requirements: ['Full sun', 'Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Easy',
+    sizes: [
+      {
+        size: 'Small',
+        price: 6.99,
+        height: '4-6 inches',
+      },
+      {
+        size: 'Medium',
+        price: 11.99,
+        height: '7-10 inches',
+      },
+    ],
+    tags: ['Trailing', 'Drought Tolerant', 'Colorful'],
+  },
+  {
+    id: 33,
+    name: 'String of Hearts',
+    scientific_name: 'Ceropegia woodii',
+    description:
+      'A trailing plant with delicate heart-shaped leaves on thin, string-like stems.',
+    light_requirements: ['Bright indirect light'],
+    water_requirements:
+      'Water every 1-2 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 9.99,
+        height: '4-6 inches',
+      },
+      {
+        size: 'Medium',
+        price: 14.99,
+        height: '8-12 inches',
+      },
+    ],
+    tags: ['Trailing', 'Unique Form', 'Low Maintenance'],
+  },
+  {
+    id: 34,
+    name: 'Tiger Jaws',
+    scientific_name: 'Faucaria tigrina',
+    description:
+      'A small succulent with triangular leaves edged with soft spines resembling tiger jaws.',
+    light_requirements: ['Full sun', 'Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 7.99,
+        height: '2-4 inches',
+      },
+      {
+        size: 'Medium',
+        price: 12.99,
+        height: '5-7 inches',
+      },
+    ],
+    tags: ['Unique Form', 'Drought Tolerant', 'Low Maintenance'],
+  },
+  {
+    id: 35,
+    name: 'Bear’s Paw',
+    scientific_name: 'Cotyledon tomentosa',
+    description:
+      'A small, bushy succulent with fuzzy, bear paw-shaped leaves tipped with reddish teeth.',
+    light_requirements: ['Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 8.99,
+        height: '3-5 inches',
+      },
+      {
+        size: 'Medium',
+        price: 13.99,
+        height: '6-8 inches',
+      },
+    ],
+    tags: ['Unique Form', 'Drought Tolerant', 'Pet Friendly'],
+  },
+  {
+    id: 36,
+    name: 'Lithops',
+    scientific_name: 'Lithops spp.',
+    description:
+      'A unique succulent that resembles small stones or pebbles to avoid predation.',
+    light_requirements: ['Full sun', 'Bright indirect light'],
+    water_requirements:
+      'Water sparingly; allow soil to dry out completely between waterings.',
+    care_level: 'Difficult',
+    sizes: [
+      {
+        size: 'Small',
+        price: 7.99,
+        height: '1-2 inches',
+      },
+      {
+        size: 'Medium',
+        price: 11.99,
+        height: '2-3 inches',
+      },
+    ],
+    tags: ['Unique Form', 'Low Maintenance', 'Drought Tolerant'],
+  },
+  {
+    id: 37,
+    name: 'Elephant Bush',
+    scientific_name: 'Portulacaria afra',
+    description:
+      'A bushy succulent with small, round, fleshy leaves on red stems, resembling a miniature tree.',
+    light_requirements: ['Bright indirect light', 'Full sun'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 6.99,
+        height: '4-6 inches',
+      },
+      {
+        size: 'Medium',
+        price: 12.99,
+        height: '8-12 inches',
+      },
+    ],
+    tags: ['Pet Friendly', 'Drought Tolerant', 'Low Maintenance'],
+  },
+  {
+    id: 38,
+    name: 'Blue Chalk Sticks',
+    scientific_name: 'Senecio serpens',
+    description:
+      'A spreading succulent with powdery blue, finger-like leaves that stand upright.',
+    light_requirements: ['Full sun', 'Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Easy',
+    sizes: [
+      {
+        size: 'Small',
+        price: 7.99,
+        height: '4-6 inches',
+      },
+      {
+        size: 'Medium',
+        price: 12.99,
+        height: '6-10 inches',
+      },
+    ],
+    tags: ['Drought Tolerant', 'Colorful', 'Low Maintenance'],
+  },
+  {
+    id: 39,
+    name: 'Crown of Thorns',
+    scientific_name: 'Euphorbia milii',
+    description:
+      'A thorny succulent with bright green leaves and small clusters of flowers.',
+    light_requirements: ['Full sun', 'Bright indirect light'],
+    water_requirements:
+      'Water every 1-2 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 9.99,
+        height: '6-8 inches',
+      },
+      {
+        size: 'Medium',
+        price: 14.99,
+        height: '10-12 inches',
+      },
+    ],
+    tags: ['Flowering', 'Unique Form', 'Drought Tolerant'],
+  },
+  {
+    id: 40,
+    name: 'Calico Kitten',
+    scientific_name: 'Crassula pellucida variegata',
+    description:
+      'A trailing succulent with heart-shaped leaves variegated in pink, cream, and green.',
+    light_requirements: ['Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 8.99,
+        height: '4-6 inches',
+      },
+      {
+        size: 'Medium',
+        price: 13.99,
+        height: '6-10 inches',
+      },
+    ],
+    tags: ['Trailing', 'Colorful', 'Low Maintenance'],
+  },
+  {
+    id: 41,
+    name: 'Ogre Ears',
+    scientific_name: "Crassula ovata 'Gollum'",
+    description:
+      'A peculiar succulent with tubular, finger-like leaves that resemble ogre ears.',
+    light_requirements: ['Bright indirect light', 'Full sun'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Easy',
+    sizes: [
+      {
+        size: 'Small',
+        price: 7.99,
+        height: '3-5 inches',
+      },
+      {
+        size: 'Medium',
+        price: 12.99,
+        height: '5-8 inches',
+      },
+    ],
+    tags: ['Unique Form', 'Drought Tolerant', 'Low Maintenance'],
+  },
+  {
+    id: 42,
+    name: 'Pig’s Ear',
+    scientific_name: 'Cotyledon orbiculata',
+    description:
+      'A succulent with thick, rounded leaves that often have reddish edges, resembling pig’s ears.',
+    light_requirements: ['Full sun', 'Bright indirect light'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 8.99,
+        height: '4-6 inches',
+      },
+      {
+        size: 'Medium',
+        price: 13.99,
+        height: '8-10 inches',
+      },
+    ],
+    tags: ['Unique Form', 'Drought Tolerant', 'Low Maintenance'],
+  },
+  {
+    id: 43,
+    name: 'Fairy Castle Cactus',
+    scientific_name: 'Acanthocereus tetragonus',
+    description:
+      'A columnar cactus with multiple branches that resemble the turrets of a castle.',
+    light_requirements: ['Full sun'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Moderate',
+    sizes: [
+      {
+        size: 'Small',
+        price: 8.99,
+        height: '4-6 inches',
+      },
+      {
+        size: 'Medium',
+        price: 13.99,
+        height: '8-12 inches',
+      },
+    ],
+    tags: ['Drought Tolerant', 'Unique Form', 'Low Maintenance'],
+  },
+  {
+    id: 44,
+    name: 'Moonstone',
+    scientific_name: 'Pachyphytum oviferum',
+    description:
+      'A plump succulent with rounded, fleshy leaves that have a powdery blue-gray coating.',
+    light_requirements: ['Bright indirect light', 'Full sun'],
+    water_requirements:
+      'Water every 2-3 weeks; allow soil to dry out between waterings.',
+    care_level: 'Easy',
+    sizes: [
+      {
+        size: 'Small',
+        price: 7.99,
+        height: '3-5 inches',
+      },
+      {
+        size: 'Medium',
+        price: 12.99,
+        height: '5-8 inches',
+      },
+    ],
+    tags: ['Drought Tolerant', 'Colorful', 'Low Maintenance'],
+  },
 ];
