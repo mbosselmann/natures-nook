@@ -48,20 +48,25 @@ export default function Search() {
         <legend className={styles["legend"]}>
           Looking for a specific plant? Search here!
         </legend>
-        <label htmlFor="searchTerm"> Search by plant name:</label>
-        <input
-          id="searchTerm"
-          type="text"
-          onChange={(event) =>
-            setSelectedSearchParams({
-              ...selectedSearchParams,
-              searchTerm: event.target.value,
-            })
-          }
-        />
-        <button className={styles["button"]} type="submit" name="search">
-          Search
-        </button>
+        <label className={styles["search-label"]} htmlFor="searchTerm">
+          Search for the plant name (or the scientific name)!
+        </label>
+        <div className={styles["search-input-group"]}>
+          <input
+            id="searchTerm"
+            type="text"
+            className={styles["search-input"]}
+            onChange={(event) =>
+              setSelectedSearchParams({
+                ...selectedSearchParams,
+                searchTerm: event.target.value,
+              })
+            }
+          />
+          <button className={styles["button"]} type="submit" name="search">
+            Search
+          </button>
+        </div>
       </fieldset>
       <fieldset className={`${styles["fieldset"]} ${styles["fieldset-flex"]}`}>
         <legend className={styles["legend"]}>Order by:</legend>
@@ -166,7 +171,7 @@ export default function Search() {
           </label>
         ))}
       </fieldset>
-      <div className={styles["button-container"]}>
+      <div className={styles["button-group"]}>
         <button className={styles["button"]} type="submit" name="filter">
           Filter
         </button>
