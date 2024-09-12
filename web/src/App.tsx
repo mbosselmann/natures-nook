@@ -41,16 +41,54 @@ export default function App() {
 
     if (action === "filter") {
       const search = searchParams?.searchTerm.toLowerCase();
-
+      let filtered: Plant[] = catalog;
       if (search) {
-        const filtered = catalog.filter((plant) => {
+        filtered = catalog.filter((plant) => {
           return (
             plant.name.toLowerCase().includes(search) ||
             plant.scientific_name.toLowerCase().includes(search)
           );
         });
-        setFilteredPlants(filtered);
       }
+      if (searchParams?.careLevel.length) {
+        filtered = filtered.filter((plant) => {
+          return searchParams.careLevel.includes(plant.care_level);
+        });
+      }
+
+      if (searchParams?.categories.length) {
+        filtered = filtered.filter((plant) => {
+          return searchParams.categories.every((category) =>
+            plant.tags.includes(category)
+          );
+        });
+      }
+
+      if (searchParams?.order) {
+        const params = searchParams.order.split("-");
+        const order = params[0] as keyof Plant;
+        const direction = params[1];
+
+        if (order === "price") {
+          filtered = filtered.sort((a, b) => {
+            if (direction === "asc") {
+              return a.sizes[0].price > b.sizes[0].price ? 1 : -1;
+            } else {
+              return a.sizes[0].price < b.sizes[0].price ? 1 : -1;
+            }
+          });
+        }
+
+        filtered = filtered.sort((a, b) => {
+          if (direction === "asc") {
+            return a[order] > b[order] ? 1 : -1;
+          } else {
+            return a[order] < b[order] ? 1 : -1;
+          }
+        });
+      }
+
+      setFilteredPlants(filtered);
     }
   }
 

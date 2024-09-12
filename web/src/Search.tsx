@@ -29,6 +29,7 @@ export default function Search({
   selectedSearchParams,
   onSearchParams,
   onFilterPlants,
+  onOpenSearch,
 }: {
   selectedSearchParams: SearchParams;
   onFilterPlants: ({
@@ -42,9 +43,8 @@ export default function Search({
     params: HTMLInputElement,
     action: "reset" | "filter"
   ) => void;
+  onOpenSearch: () => void;
 }) {
-  console.log(selectedSearchParams);
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const action = (event.nativeEvent as SubmitEvent)
@@ -52,6 +52,7 @@ export default function Search({
 
     if (action.name === "search" || action.name === "filter") {
       onFilterPlants({ searchParams: selectedSearchParams, action: "filter" });
+      onOpenSearch();
     }
 
     if (action.name === "reset") {
@@ -95,9 +96,9 @@ export default function Search({
               className={styles["input-hidden"]}
               type="radio"
               name="order"
-              value="nameasc"
+              value="name-asc"
               onChange={handleInputChange}
-              checked={selectedSearchParams.order === "nameasc"}
+              checked={selectedSearchParams.order === "name-asc"}
             />
             Name (A-Z)
           </label>
@@ -106,9 +107,9 @@ export default function Search({
               className={styles["input-hidden"]}
               type="radio"
               name="order"
-              value="namedesc"
+              value="name-desc"
               onChange={handleInputChange}
-              checked={selectedSearchParams.order === "namedesc"}
+              checked={selectedSearchParams.order === "name-desc"}
             />
             Name (Z-A)
           </label>
@@ -119,9 +120,9 @@ export default function Search({
               className={styles["input-hidden"]}
               type="radio"
               name="order"
-              value="scientificasc"
+              value="scientific_name-asc"
               onChange={handleInputChange}
-              checked={selectedSearchParams.order === "scientificasc"}
+              checked={selectedSearchParams.order === "scientific_name-asc"}
             />
             Scientific Name (A-Z)
           </label>
@@ -130,9 +131,9 @@ export default function Search({
               className={styles["input-hidden"]}
               type="radio"
               name="order"
-              value="scientificdesc"
+              value="scientific_name-desc"
               onChange={handleInputChange}
-              checked={selectedSearchParams.order === "scientificdesc"}
+              checked={selectedSearchParams.order === "scientific_name-desc"}
             />
             Scientific Name (Z-A)
           </label>
@@ -143,9 +144,9 @@ export default function Search({
               className={styles["input-hidden"]}
               type="radio"
               name="order"
-              value="priceasc"
+              value="price-asc"
               onChange={handleInputChange}
-              checked={selectedSearchParams?.order === "priceasc"}
+              checked={selectedSearchParams?.order === "price-asc"}
             />
             Price ASC
           </label>
@@ -154,9 +155,9 @@ export default function Search({
               className={styles["input-hidden"]}
               type="radio"
               name="order"
-              value="pricedesc"
+              value="price-desc"
               onChange={handleInputChange}
-              checked={selectedSearchParams?.order === "pricedesc"}
+              checked={selectedSearchParams?.order === "price-desc"}
             />
             Price DESC
           </label>

@@ -88,6 +88,7 @@ export default function AppHeader({
           selectedSearchParams={selectedSearchParams}
           onFilterPlants={onFilterPlants}
           onSearchParams={handleSelectedSearchParams}
+          onOpenSearch={onOpenSearch}
         />
       )}
     </header>
