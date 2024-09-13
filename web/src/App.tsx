@@ -4,6 +4,29 @@ import { useLoaderData } from "react-router-dom";
 import AppHeader, { SearchParams } from "./AppHeader";
 import { useEffect, useState } from "react";
 
+const tags: string[] = [
+  "Air Purifying",
+  "Low Maintenance",
+  "Drought Tolerant",
+  "Pet Friendly",
+  "Fast Growing",
+  "Flowering",
+  "Shade Tolerant",
+  "Medicinal",
+  "Succulent",
+  "Tropical",
+  "Statement Plant",
+  "Decorative",
+  "Classic",
+  "Easy Care",
+  "Colorful",
+  "No Soil",
+  "Unique Texture",
+  "Trailing",
+  "Unique Form",
+  "Holiday Plant",
+];
+
 export type Plant = {
   id: number;
   scientific_name: string;
@@ -26,6 +49,7 @@ export default function App() {
   const { plants: catalog } = useLoaderData() as { plants: Plant[] };
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [filteredPlants, setFilteredPlants] = useState<Plant[]>(catalog);
+  const [availableTags, setAvailableTags] = useState<string[]>(tags);
 
   function handleFilterPlants({
     searchParams,
@@ -36,6 +60,7 @@ export default function App() {
   }) {
     if (action === "reset") {
       setFilteredPlants(catalog);
+      setAvailableTags(tags);
       return;
     }
 
@@ -87,7 +112,8 @@ export default function App() {
           }
         });
       }
-
+      const tags = new Set(filtered.map((plant) => plant.tags).flat());
+      setAvailableTags(Array.from(tags));
       setFilteredPlants(filtered);
     }
   }
@@ -107,6 +133,7 @@ export default function App() {
   return (
     <main className={styles["main"]}>
       <AppHeader
+        tags={availableTags}
         isSearchOpen={isSearchOpen}
         onOpenSearch={handleOpenSearch}
         onFilterPlants={handleFilterPlants}

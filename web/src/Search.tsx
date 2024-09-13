@@ -2,35 +2,14 @@ import { ChangeEvent, FormEvent } from "react";
 import styles from "./Search.module.css";
 import { SearchParams } from "./AppHeader";
 
-const tags = [
-  "Air Purifying",
-  "Low Maintenance",
-  "Drought Tolerant",
-  "Pet Friendly",
-  "Fast Growing",
-  "Flowering",
-  "Shade Tolerant",
-  "Medicinal",
-  "Succulent",
-  "Tropical",
-  "Statement Plant",
-  "Decorative",
-  "Classic",
-  "Easy Care",
-  "Colorful",
-  "No Soil",
-  "Unique Texture",
-  "Trailing",
-  "Unique Form",
-  "Holiday Plant",
-];
-
 export default function Search({
+  tags,
   selectedSearchParams,
   onSearchParams,
   onFilterPlants,
   onOpenSearch,
 }: {
+  tags: string[];
   selectedSearchParams: SearchParams;
   onFilterPlants: ({
     searchParams,

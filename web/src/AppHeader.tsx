@@ -11,10 +11,12 @@ export type SearchParams = {
 };
 
 export default function AppHeader({
+  tags,
   onOpenSearch,
   isSearchOpen,
   onFilterPlants,
 }: {
+  tags: string[];
   onOpenSearch: () => void;
   isSearchOpen: boolean;
   onFilterPlants: ({
@@ -85,6 +87,7 @@ export default function AppHeader({
       </section>
       {isSearchOpen && (
         <Search
+          tags={tags}
           selectedSearchParams={selectedSearchParams}
           onFilterPlants={onFilterPlants}
           onSearchParams={handleSelectedSearchParams}
