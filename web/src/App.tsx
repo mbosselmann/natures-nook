@@ -70,7 +70,7 @@ export default function App() {
         const direction = params[1];
 
         if (order === "price") {
-          filtered = filtered.sort((a, b) => {
+          filtered = [...filtered].sort((a, b) => {
             if (direction === "asc") {
               return a.sizes[0].price > b.sizes[0].price ? 1 : -1;
             } else {
@@ -79,7 +79,7 @@ export default function App() {
           });
         }
 
-        filtered = filtered.sort((a, b) => {
+        filtered = [...filtered].sort((a, b) => {
           if (direction === "asc") {
             return a[order] > b[order] ? 1 : -1;
           } else {
