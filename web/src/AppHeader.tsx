@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./AppHeader.module.css";
-import SearchIcon from "./assets/icons/search";
+import SearchIcon from "./assets/icons/SearchIcon";
 import Search from "./Search";
 
 export type SearchParams = {
@@ -81,6 +81,7 @@ export default function AppHeader({
           className={styles["button"]}
           type="button"
           onClick={onOpenSearch}
+          aria-label="search plant"
         >
           <SearchIcon color={isSearchOpen ? "#22577a" : "#007f5f"} />
         </button>

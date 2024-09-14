@@ -3,6 +3,7 @@ import PlantCard from "./PlantCard";
 import { useLoaderData } from "react-router-dom";
 import AppHeader, { SearchParams } from "./AppHeader";
 import { useEffect, useState } from "react";
+import ScrollToTopButton from "./ScrollToTopButton";
 
 const tags: string[] = [
   "Air Purifying",
@@ -50,6 +51,7 @@ export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [filteredPlants, setFilteredPlants] = useState<Plant[]>(catalog);
   const [availableTags, setAvailableTags] = useState<string[]>(tags);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   function handleFilterPlants({
     searchParams,
@@ -130,6 +132,21 @@ export default function App() {
     }
   }, [isSearchOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setShowScrollToTop(true);
+      } else {
+        setShowScrollToTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <main className={styles["main"]}>
       <AppHeader
@@ -145,6 +162,7 @@ export default function App() {
           </li>
         ))}
       </ul>
+      {showScrollToTop && <ScrollToTopButton />}
     </main>
   );
 }
