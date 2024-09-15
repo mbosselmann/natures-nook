@@ -6,11 +6,6 @@ export type Plant = {
   light_requirements: string[];
   water_requirements: string;
   care_level: string;
-  sizes: {
-    height: string;
-    price: number;
-    size: string;
-  }[];
   tags: string[];
 };
 
@@ -25,23 +20,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 15.99,
-        height: '6-10 inches',
-      },
-      {
-        size: 'Medium',
-        price: 25.99,
-        height: '12-18 inches',
-      },
-      {
-        size: 'Large',
-        price: 39.99,
-        height: '24-30 inches',
-      },
-    ],
     tags: ['Air Purifying', 'Low Maintenance', 'Drought Tolerant'],
   },
   {
@@ -53,18 +31,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Bright indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil slightly moist.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 9.99,
-        height: '8-12 inches',
-      },
-      {
-        size: 'Medium',
-        price: 14.99,
-        height: '14-18 inches',
-      },
-    ],
     tags: ['Pet Friendly', 'Air Purifying', 'Fast Growing'],
   },
   {
@@ -77,18 +43,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water weekly; keep soil consistently moist but not waterlogged.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Medium',
-        price: 12.99,
-        height: '10-15 inches',
-      },
-      {
-        size: 'Large',
-        price: 22.99,
-        height: '20-24 inches',
-      },
-    ],
     tags: ['Air Purifying', 'Flowering', 'Shade Tolerant'],
   },
   {
@@ -101,18 +55,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 3 weeks; allow soil to dry out completely between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 10.99,
-        height: '6-8 inches',
-      },
-      {
-        size: 'Medium',
-        price: 18.99,
-        height: '10-12 inches',
-      },
-    ],
     tags: ['Medicinal', 'Drought Tolerant', 'Succulent'],
   },
   {
@@ -125,18 +67,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 1-2 weeks; allow soil to dry out slightly between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Medium',
-        price: 24.99,
-        height: '14-20 inches',
-      },
-      {
-        size: 'Large',
-        price: 45.99,
-        height: '30-36 inches',
-      },
-    ],
     tags: ['Tropical', 'Fast Growing', 'Statement Plant'],
   },
   {
@@ -148,18 +78,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Bright indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil evenly moist.',
     care_level: 'Challenging',
-    sizes: [
-      {
-        size: 'Medium',
-        price: 34.99,
-        height: '18-24 inches',
-      },
-      {
-        size: 'Large',
-        price: 64.99,
-        height: '36-48 inches',
-      },
-    ],
     tags: ['Statement Plant', 'Tropical', 'Decorative'],
   },
   {
@@ -172,18 +90,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 1-2 weeks; allow soil to dry out between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 8.99,
-        height: '6-8 inches',
-      },
-      {
-        size: 'Hanging Basket',
-        price: 16.99,
-        height: '10-12 inches',
-      },
-    ],
     tags: ['Air Purifying', 'Fast Growing', 'Low Maintenance'],
   },
   {
@@ -196,18 +102,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out completely between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 19.99,
-        height: '8-12 inches',
-      },
-      {
-        size: 'Medium',
-        price: 29.99,
-        height: '16-20 inches',
-      },
-    ],
     tags: ['Low Maintenance', 'Drought Tolerant', 'Air Purifying'],
   },
   {
@@ -220,18 +114,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 1-2 weeks; allow soil to dry out slightly between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 16.99,
-        height: '8-12 inches',
-      },
-      {
-        size: 'Hanging Basket',
-        price: 22.99,
-        height: '12-16 inches',
-      },
-    ],
     tags: ['Air Purifying', 'Fast Growing', 'Low Maintenance'],
   },
   {
@@ -243,18 +125,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Bright indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil consistently moist.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Medium',
-        price: 13.99,
-        height: '12-18 inches',
-      },
-      {
-        size: 'Hanging Basket',
-        price: 19.99,
-        height: '18-24 inches',
-      },
-    ],
     tags: ['Air Purifying', 'Pet Friendly', 'Classic'],
   },
   {
@@ -266,18 +136,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Bright indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil slightly moist.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Medium',
-        price: 22.99,
-        height: '16-20 inches',
-      },
-      {
-        size: 'Large',
-        price: 49.99,
-        height: '30-36 inches',
-      },
-    ],
     tags: ['Air Purifying', 'Decorative', 'Tropical'],
   },
   {
@@ -290,18 +148,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out completely between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 14.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 24.99,
-        height: '8-12 inches',
-      },
-    ],
     tags: ['Succulent', 'Drought Tolerant', 'Easy Care'],
   },
   {
@@ -313,18 +159,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Low indirect light', 'Medium indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil evenly moist.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 18.99,
-        height: '10-12 inches',
-      },
-      {
-        size: 'Medium',
-        price: 28.99,
-        height: '14-18 inches',
-      },
-    ],
     tags: ['Pet Friendly', 'Shade Tolerant', 'Decorative'],
   },
   {
@@ -337,18 +171,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water weekly; allow soil to dry out slightly between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 12.99,
-        height: '6-8 inches',
-      },
-      {
-        size: 'Medium',
-        price: 19.99,
-        height: '10-14 inches',
-      },
-    ],
     tags: ['Easy Care', 'Decorative', 'Pet Friendly'],
   },
   {
@@ -360,18 +182,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Bright indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil slightly moist.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 14.99,
-        height: '8-12 inches',
-      },
-      {
-        size: 'Medium',
-        price: 24.99,
-        height: '14-20 inches',
-      },
-    ],
     tags: ['Colorful', 'Tropical', 'Decorative'],
   },
   {
@@ -383,18 +193,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Bright indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil slightly moist.',
     care_level: 'Challenging',
-    sizes: [
-      {
-        size: 'Medium',
-        price: 29.99,
-        height: '18-24 inches',
-      },
-      {
-        size: 'Large',
-        price: 59.99,
-        height: '36-48 inches',
-      },
-    ],
     tags: ['Tropical', 'Flowering', 'Statement Plant'],
   },
   {
@@ -407,23 +205,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 17.99,
-        height: '12-16 inches',
-      },
-      {
-        size: 'Medium',
-        price: 29.99,
-        height: '18-24 inches',
-      },
-      {
-        size: 'Large',
-        price: 49.99,
-        height: '30-36 inches',
-      },
-    ],
     tags: ['Low Maintenance', 'Tropical', 'Air Purifying'],
   },
   {
@@ -435,18 +216,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Bright indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil slightly moist.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Medium',
-        price: 24.99,
-        height: '20-24 inches',
-      },
-      {
-        size: 'Large',
-        price: 44.99,
-        height: '36-48 inches',
-      },
-    ],
     tags: ['Tropical', 'Decorative', 'Statement Plant'],
   },
   {
@@ -459,18 +228,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 3-4 weeks; allow soil to dry out completely between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 8.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 14.99,
-        height: '8-12 inches',
-      },
-    ],
     tags: ['Drought Tolerant', 'Low Maintenance', 'Succulent'],
   },
   {
@@ -483,18 +240,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Mist weekly; soak in water for 2-3 hours every 2 weeks.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 6.99,
-        height: '2-4 inches',
-      },
-      {
-        size: 'Medium',
-        price: 11.99,
-        height: '4-6 inches',
-      },
-    ],
     tags: ['No Soil', 'Low Maintenance', 'Decorative'],
   },
   {
@@ -506,18 +251,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Low light', 'Bright indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil slightly moist.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Medium',
-        price: 11.99,
-        height: '12-18 inches',
-      },
-      {
-        size: 'Large',
-        price: 24.99,
-        height: '20-24 inches',
-      },
-    ],
     tags: ['Tropical', 'Decorative', 'Air Purifying'],
   },
   {
@@ -529,18 +262,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Bright indirect light'],
     water_requirements: 'Water weekly; keep soil slightly moist.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 7.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 13.99,
-        height: '6-8 inches',
-      },
-    ],
     tags: ['Flowering', 'Pet Friendly', 'Classic'],
   },
   {
@@ -552,18 +273,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Low light', 'Bright indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil slightly moist.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 12.99,
-        height: '8-12 inches',
-      },
-      {
-        size: 'Medium',
-        price: 19.99,
-        height: '14-18 inches',
-      },
-    ],
     tags: ['Low Maintenance', 'Tropical', 'Air Purifying'],
   },
   {
@@ -576,18 +285,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 6.99,
-        height: '3-5 inches',
-      },
-      {
-        size: 'Medium',
-        price: 11.99,
-        height: '6-8 inches',
-      },
-    ],
     tags: ['Drought Tolerant', 'Colorful', 'Low Maintenance'],
   },
   {
@@ -600,18 +297,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 5.99,
-        height: '2-4 inches',
-      },
-      {
-        size: 'Medium',
-        price: 10.99,
-        height: '5-7 inches',
-      },
-    ],
     tags: ['Pet Friendly', 'Low Maintenance', 'Drought Tolerant'],
   },
   {
@@ -624,18 +309,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 7.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 12.99,
-        height: '8-10 inches',
-      },
-    ],
     tags: ['Unique Texture', 'Low Maintenance', 'Drought Tolerant'],
   },
   {
@@ -648,18 +321,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 8.99,
-        height: '6-8 inches',
-      },
-      {
-        size: 'Medium',
-        price: 14.99,
-        height: '10-12 inches',
-      },
-    ],
     tags: ['Trailing', 'Drought Tolerant', 'Low Maintenance'],
   },
   {
@@ -672,18 +333,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 9.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 15.99,
-        height: '8-10 inches',
-      },
-    ],
     tags: ['Trailing', 'Unique Form', 'Low Maintenance'],
   },
   {
@@ -696,18 +345,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 5.99,
-        height: '3-5 inches',
-      },
-      {
-        size: 'Medium',
-        price: 9.99,
-        height: '6-8 inches',
-      },
-    ],
     tags: ['Pet Friendly', 'Low Maintenance', 'Drought Tolerant'],
   },
   {
@@ -719,18 +356,6 @@ export const catalog: Plant[] = [
     light_requirements: ['Bright indirect light'],
     water_requirements: 'Water every 1-2 weeks; keep soil slightly moist.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 7.99,
-        height: '6-8 inches',
-      },
-      {
-        size: 'Medium',
-        price: 12.99,
-        height: '10-14 inches',
-      },
-    ],
     tags: ['Flowering', 'Pet Friendly', 'Holiday Plant'],
   },
   {
@@ -743,18 +368,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 8.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 13.99,
-        height: '8-12 inches',
-      },
-    ],
     tags: ['Trailing', 'Unique Form', 'Drought Tolerant'],
   },
   {
@@ -767,18 +380,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 6.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 11.99,
-        height: '7-10 inches',
-      },
-    ],
     tags: ['Trailing', 'Drought Tolerant', 'Colorful'],
   },
   {
@@ -791,18 +392,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 1-2 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 9.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 14.99,
-        height: '8-12 inches',
-      },
-    ],
     tags: ['Trailing', 'Unique Form', 'Low Maintenance'],
   },
   {
@@ -815,18 +404,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 7.99,
-        height: '2-4 inches',
-      },
-      {
-        size: 'Medium',
-        price: 12.99,
-        height: '5-7 inches',
-      },
-    ],
     tags: ['Unique Form', 'Drought Tolerant', 'Low Maintenance'],
   },
   {
@@ -839,18 +416,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 8.99,
-        height: '3-5 inches',
-      },
-      {
-        size: 'Medium',
-        price: 13.99,
-        height: '6-8 inches',
-      },
-    ],
     tags: ['Unique Form', 'Drought Tolerant', 'Pet Friendly'],
   },
   {
@@ -863,18 +428,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water sparingly; allow soil to dry out completely between waterings.',
     care_level: 'Difficult',
-    sizes: [
-      {
-        size: 'Small',
-        price: 7.99,
-        height: '1-2 inches',
-      },
-      {
-        size: 'Medium',
-        price: 11.99,
-        height: '2-3 inches',
-      },
-    ],
     tags: ['Unique Form', 'Low Maintenance', 'Drought Tolerant'],
   },
   {
@@ -887,18 +440,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 6.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 12.99,
-        height: '8-12 inches',
-      },
-    ],
     tags: ['Pet Friendly', 'Drought Tolerant', 'Low Maintenance'],
   },
   {
@@ -911,18 +452,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 7.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 12.99,
-        height: '6-10 inches',
-      },
-    ],
     tags: ['Drought Tolerant', 'Colorful', 'Low Maintenance'],
   },
   {
@@ -935,18 +464,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 1-2 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 9.99,
-        height: '6-8 inches',
-      },
-      {
-        size: 'Medium',
-        price: 14.99,
-        height: '10-12 inches',
-      },
-    ],
     tags: ['Flowering', 'Unique Form', 'Drought Tolerant'],
   },
   {
@@ -959,18 +476,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 8.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 13.99,
-        height: '6-10 inches',
-      },
-    ],
     tags: ['Trailing', 'Colorful', 'Low Maintenance'],
   },
   {
@@ -983,18 +488,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 7.99,
-        height: '3-5 inches',
-      },
-      {
-        size: 'Medium',
-        price: 12.99,
-        height: '5-8 inches',
-      },
-    ],
     tags: ['Unique Form', 'Drought Tolerant', 'Low Maintenance'],
   },
   {
@@ -1007,18 +500,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 8.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 13.99,
-        height: '8-10 inches',
-      },
-    ],
     tags: ['Unique Form', 'Drought Tolerant', 'Low Maintenance'],
   },
   {
@@ -1031,18 +512,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Moderate',
-    sizes: [
-      {
-        size: 'Small',
-        price: 8.99,
-        height: '4-6 inches',
-      },
-      {
-        size: 'Medium',
-        price: 13.99,
-        height: '8-12 inches',
-      },
-    ],
     tags: ['Drought Tolerant', 'Unique Form', 'Low Maintenance'],
   },
   {
@@ -1055,18 +524,6 @@ export const catalog: Plant[] = [
     water_requirements:
       'Water every 2-3 weeks; allow soil to dry out between waterings.',
     care_level: 'Easy',
-    sizes: [
-      {
-        size: 'Small',
-        price: 7.99,
-        height: '3-5 inches',
-      },
-      {
-        size: 'Medium',
-        price: 12.99,
-        height: '5-8 inches',
-      },
-    ],
     tags: ['Drought Tolerant', 'Colorful', 'Low Maintenance'],
   },
 ];

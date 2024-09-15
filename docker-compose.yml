@@ -29,6 +29,14 @@ services:
       - nook-net
     depends_on:
       - kafka
+      - catalog_db
+
+    environment:
+      DB_HOST: catalog_db
+      DB_PORT: 3306
+      DB_NAME: catalog_db
+      DB_USER: catalog_user
+      DB_PASSWORD: catalog_pass
 
   inventory:
     image: node:20-alpine
@@ -84,6 +92,21 @@ services:
       - nook-net
     depends_on:
       - kafka
+
+  db:
+    image: mysql:8.0
+    container_name: catalog_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: catalog_db
+      MYSQL_USER: catalog_user
+      MYSQL_PASSWORD: catalog_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - nook-net
 
 volumes:
   kafka_data:

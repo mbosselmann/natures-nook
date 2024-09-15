@@ -1,6 +1,9 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { catalog } from './catalog';
+import { catalog } from './plants';
 import { KafkaService } from 'src/kafka/kafka.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Plant } from './entities/plant.entity';
+import { Repository } from 'typeorm';
 
 type Size = 'Small' | 'Medium' | 'Large' | 'Hanging Basket';
 
@@ -15,7 +18,11 @@ const inventory: { [key: number]: InventoryItem } = {};
 
 @Injectable()
 export class CatalogService implements OnModuleInit {
-  constructor(private readonly kafkaService: KafkaService) {}
+  constructor(
+    private readonly kafkaService: KafkaService,
+    @InjectRepository(Plant)
+    private readonly plantRepository: Repository<Plant>,
+  ) {}
 
   getAllPlants() {
     return catalog.map((plant) => ({
