@@ -1,5 +1,6 @@
 import { Plant } from "./App";
 import styles from "./PlantDetails.module.css";
+import ScrollToTopButton from "./ScrollToTopButton";
 import plantUrl from "./assets/green-plant.webp";
 import backgroundUrl from "./assets/plant copy.svg";
 
@@ -56,6 +57,7 @@ export default function PlantDetailsPage({ plant }: { plant: Plant }) {
         src={backgroundUrl}
         alt=""
       />
+      <ScrollToTopButton />
     </main>
   );
 }

@@ -35,7 +35,6 @@ export default function Search({
     }
 
     if (action.name === "reset") {
-      console.log("Clearing...");
       onFilterPlants({ action: "reset" });
       onSearchParams(event.target as HTMLInputElement, "reset");
     }

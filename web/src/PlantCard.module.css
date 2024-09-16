@@ -18,6 +18,8 @@ ul > li > * {
 
 .card__header {
   background: #95d5b2;
+  font-family: monospace;
+  font-size: 1.2rem;
   width: 100%;
   display: grid;
   place-items: center;

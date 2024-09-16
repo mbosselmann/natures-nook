@@ -51,7 +51,6 @@ export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [filteredPlants, setFilteredPlants] = useState<Plant[]>(catalog);
   const [availableTags, setAvailableTags] = useState<string[]>(tags);
-  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   function handleFilterPlants({
     searchParams,
@@ -70,7 +69,7 @@ export default function App() {
       const search = searchParams?.searchTerm.toLowerCase();
       let filtered: Plant[] = catalog;
       if (search) {
-        filtered = catalog.filter((plant) => {
+        filtered = catalog?.filter((plant) => {
           return (
             plant.name.toLowerCase().includes(search) ||
             plant.scientific_name.toLowerCase().includes(search)
@@ -132,21 +131,6 @@ export default function App() {
     }
   }, [isSearchOpen]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 200) {
-        setShowScrollToTop(true);
-      } else {
-        setShowScrollToTop(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <main className={styles["main"]}>
       <AppHeader
@@ -155,14 +139,18 @@ export default function App() {
         onOpenSearch={handleOpenSearch}
         onFilterPlants={handleFilterPlants}
       />
-      <ul className={styles["plant-list-grid"]}>
-        {filteredPlants.map((plant) => (
-          <li key={plant.id}>
-            <PlantCard plant={plant} />
-          </li>
-        ))}
-      </ul>
-      {showScrollToTop && <ScrollToTopButton />}
+      {filteredPlants.length ? (
+        <ul className={styles["plant-list-grid"]}>
+          {filteredPlants.map((plant) => (
+            <li key={plant.id}>
+              <PlantCard plant={plant} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className={styles["no-results"]}>No results found.</p>
+      )}
+      <ScrollToTopButton />
     </main>
   );
 }
