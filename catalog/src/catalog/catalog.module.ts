@@ -5,9 +5,13 @@ import { KafkaModule } from 'src/kafka/kafa.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PlantSize } from './entities/plant-size.entity';
 import { Plant } from './entities/plant.entity';
+import { ReadModel } from './entities/read-model.entity';
 
 @Module({
-  imports: [KafkaModule, TypeOrmModule.forFeature([Plant, PlantSize])],
+  imports: [
+    KafkaModule,
+    TypeOrmModule.forFeature([Plant, PlantSize, ReadModel]),
+  ],
   controllers: [CatalogController],
   providers: [CatalogService],
 })
