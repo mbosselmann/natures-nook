@@ -13,41 +13,41 @@ export class CatalogService implements OnModuleInit {
     private readonly plantRepository: Repository<Plant>,
     @InjectRepository(ReadModel)
     private readonly readModelRepository: Repository<ReadModel>,
+    // @InjectRepository(PlantSize)
+    // private readonly plantSizeRepository: Repository<PlantSize>,
   ) {}
 
-  getAllPlants() {
-    const catalog = this.plantRepository.find({ relations: ['sizes'] });
-    return catalog;
-    // return catalog.map((plant) => ({
-    //   ...plant,
-    //   sizes: plant.sizes.map((size) => ({
-    //     ...size,
-    //     amount: Object.values(inventory).filter(
-    //       (item) => item.id === plant.id && item.size === size.size,
-    //     ).length,
-    //   })),
-    // }));
+  async getAllPlants() {
+    const catalog = await this.plantRepository.find({
+      relations: ['sizes', 'sizes.readModels'],
+    });
+
+    return catalog.map((plant) => ({
+      ...plant,
+      sizes: plant.sizes.map((size) => ({
+        ...size,
+        amount: size.readModels ? size?.readModels?.length : 0,
+      })),
+    }));
   }
 
-  getPlantById(id: number) {
-    return this.plantRepository.findOne({
+  async getPlantById(id: number) {
+    const plant = await this.plantRepository.findOne({
       where: { id },
-      relations: ['sizes'],
+      relations: ['sizes', 'sizes.readModels'],
     });
-    // const plant = catalog.find((plant) => plant.id === id);
-    // if (!plant) {
-    //   return null;
-    // }
 
-    // return {
-    //   ...plant,
-    //   sizes: plant.sizes.map((size) => ({
-    //     ...size,
-    //     amount: Object.values(inventory).filter(
-    //       (item) => item.id === plant.id && item.size === size.size,
-    //     ).length,
-    //   })),
-    // };
+    if (!plant) {
+      return null;
+    }
+
+    return {
+      ...plant,
+      sizes: plant.sizes.map((size) => ({
+        ...size,
+        amount: size?.readModels?.length ?? 0,
+      })),
+    };
   }
 
   onModuleInit() {

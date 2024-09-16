@@ -82,7 +82,6 @@ export const inventory: Inventory[] = [
 
   // Chinese Money Plant
   { id: 48, catalogId: 14, size: 'Medium' },
-  { id: 49, catalogId: 14, size: 'Large' },
 
   // Croton
   { id: 50, catalogId: 15, size: 'Small' },
@@ -116,7 +115,6 @@ export const inventory: Inventory[] = [
   { id: 68, catalogId: 20, size: 'Medium' },
 
   // Dumb Cane
-  { id: 69, catalogId: 21, size: 'Small' },
   { id: 70, catalogId: 21, size: 'Medium' },
   { id: 71, catalogId: 21, size: 'Medium' },
   { id: 72, catalogId: 21, size: 'Large' },
