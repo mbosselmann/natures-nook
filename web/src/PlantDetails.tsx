@@ -1,15 +1,25 @@
+import { Link } from "react-router-dom";
 import { Plant } from "./App";
 import styles from "./PlantDetails.module.css";
 import ScrollToTopButton from "./ScrollToTopButton";
 import plantUrl from "./assets/green-plant.webp";
 import backgroundUrl from "./assets/plant copy.svg";
+import ArrowLeftIcon from "./assets/icons/ArrowLeftIcon";
 
 export default function PlantDetailsPage({ plant }: { plant: Plant }) {
   return (
     <main className={styles["main"]}>
       <header className={styles["header"]}>
-        <h1>{plant.name}</h1>
+        <Link
+          to="/"
+          className={styles["back-link"]}
+          aria-label="back to plant overview"
+        >
+          <ArrowLeftIcon width={30} height={30} color="#000" />
+        </Link>
+        <h1 className={styles["headline"]}>{plant.name}</h1>
       </header>
+      <div className={styles["wave"]}></div>
       <img
         className={styles["plant-image"]}
         height="200"

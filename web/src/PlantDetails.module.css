@@ -24,11 +24,31 @@ h2 {
 }
 
 .header {
-  background-color: #95d5b2;
-  font-size: 1.2rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 500px;
   font-family: monospace;
-  padding: 1rem 1rem 5rem;
   text-align: center;
+  background-color: #95d5b2;
+  padding: 1rem;
+  z-index: 2;
+}
+
+@media (min-width: 810px) {
+  .header {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.headline {
+  filter: drop-shadow(0 5px 4px #22577a60);
+}
+
+.wave {
+  height: 10rem;
+  background-color: #95d5b2;
   --mask: radial-gradient(
         34.99px at 50% calc(100% - 48px),
         #000 99%,
@@ -39,6 +59,17 @@ h2 {
       calc(100% - 30px) / 120px 100% repeat-x;
   -webkit-mask: var(--mask);
   mask: var(--mask);
+}
+
+.back-link {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 1rem;
+  top: 0.6rem;
+  z-index: 3;
 }
 
 .section {
