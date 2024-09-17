@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./ScrollToTopButton.module.css";
-import ArrowIcon from "./assets/icons/ArrowIcon";
+import ArrowUpIcon from "./assets/icons/ArrowUpIcon";
 
 export default function ScrollToTopButton() {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -35,7 +35,7 @@ export default function ScrollToTopButton() {
       className={styles["button"]}
       aria-label="Scroll to top"
     >
-      <ArrowIcon />
+      <ArrowUpIcon width={30} height={30} color="#fff" />
     </button>
   );
 }
