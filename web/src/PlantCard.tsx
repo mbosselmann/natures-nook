@@ -7,7 +7,7 @@ const PlantCard = ({ plant }: { plant: Plant }) => {
   return (
     <article className={styles["card"]}>
       <div className={styles["card__header"]}>
-        <h2>{plant.name}</h2>
+        <h2 className={styles["card__title"]}>{plant.name}</h2>
       </div>
       <div className={styles["card__description"]}>
         <p>

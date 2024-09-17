@@ -26,6 +26,10 @@ ul > li > * {
   border-radius: 1rem 1rem 0 0;
 }
 
+.card__title {
+  filter: drop-shadow(0 5px 4px #22577a60);
+}
+
 .card__description {
   padding: 1rem;
 }
