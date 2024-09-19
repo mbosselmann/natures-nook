@@ -17,18 +17,28 @@ export class CatalogService implements OnModuleInit {
     // private readonly plantSizeRepository: Repository<PlantSize>,
   ) {}
 
-  async getAllPlants() {
-    const catalog = await this.plantRepository.find({
+  async getAllPlants(page: number = 1, limit: number = 12) {
+    const [catalog, total] = await this.plantRepository.findAndCount({
       relations: ['sizes', 'sizes.readModels'],
+      skip: (page - 1) * limit,
+      take: limit,
     });
 
-    return catalog.map((plant) => ({
+    const plants = catalog.map((plant) => ({
       ...plant,
       sizes: plant.sizes.map((size) => ({
         ...size,
         amount: size.readModels ? size?.readModels?.length : 0,
       })),
     }));
+
+    return {
+      data: plants,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   async getPlantById(id: number) {

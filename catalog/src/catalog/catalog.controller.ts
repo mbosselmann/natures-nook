@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { CatalogService } from './catalog.service';
 
 @Controller('catalog')
@@ -6,8 +6,8 @@ export class CatalogController {
   constructor(private readonly catalogService: CatalogService) {}
 
   @Get('plants')
-  getAllPlants() {
-    return this.catalogService.getAllPlants();
+  getAllPlants(@Query('page') page: string, @Query('limit') limit: string) {
+    return this.catalogService.getAllPlants(Number(page), Number(limit));
   }
 
   @Get('plant/:id')

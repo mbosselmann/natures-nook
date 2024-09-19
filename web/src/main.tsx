@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <App />,
         errorElement: <ErrorPage />,
-        loader: plantsLoader as unknown as LoaderFunction,
+        loader: plantsLoader,
       },
       {
         path: "/plant/:id",

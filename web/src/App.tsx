@@ -2,8 +2,9 @@ import styles from "./App.module.css";
 import PlantCard from "./PlantCard";
 import { useLoaderData } from "react-router-dom";
 import AppHeader, { SearchParams } from "./AppHeader";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ScrollToTopButton from "./ScrollToTopButton";
+import { PlantData } from "./loader/plantsLoader";
 
 const tags: string[] = [
   "Air Purifying",
@@ -47,10 +48,34 @@ export type Plant = {
 };
 
 export default function App() {
-  const { plants: catalog } = useLoaderData() as { plants: Plant[] };
+  const {
+    data: catalog,
+    total,
+    page: initialPage,
+    limit,
+    totalPages,
+  } = useLoaderData() as PlantData;
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [filteredPlants, setFilteredPlants] = useState<Plant[]>(catalog);
   const [availableTags, setAvailableTags] = useState<string[]>(tags);
+  const [page, setPage] = useState(initialPage);
+  const [loading, setLoading] = useState(false);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const fetchedPages = useRef(new Set<number>());
+
+  const lastPlantElementRef = useCallback(
+    (node: HTMLLIElement | null) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && page < totalPages) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [totalPages, page, loading]
+  );
 
   function handleFilterPlants({
     searchParams,
@@ -131,6 +156,30 @@ export default function App() {
     }
   }, [isSearchOpen]);
 
+  useEffect(() => {
+    if (page !== initialPage && !fetchedPages.current.has(page)) {
+      const fetchPlants = async () => {
+        setLoading(true);
+        try {
+          const response = await fetch(
+            `/catalog/plants?page=${page}&limit=${limit}`
+          );
+          const data: PlantData = await response.json();
+          setFilteredPlants((previousPlants) => [
+            ...previousPlants,
+            ...data.data,
+          ]);
+          fetchedPages.current.add(page);
+        } catch (error) {
+          console.error("Failed to fetch plants:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchPlants();
+    }
+  }, [page, limit, initialPage]);
+
   return (
     <main className={styles["main"]}>
       <AppHeader
@@ -139,10 +188,22 @@ export default function App() {
         onOpenSearch={handleOpenSearch}
         onFilterPlants={handleFilterPlants}
       />
-      {filteredPlants.length ? (
+      {filteredPlants?.length && (
+        <p>
+          {filteredPlants?.length} / {total} plants loaded
+        </p>
+      )}
+      {filteredPlants?.length ? (
         <ul className={styles["plant-list-grid"]}>
-          {filteredPlants.map((plant) => (
-            <li key={plant.id}>
+          {filteredPlants.map((plant, index) => (
+            <li
+              key={plant.id}
+              ref={
+                filteredPlants.length === index + 1 && index + 1 !== total
+                  ? lastPlantElementRef
+                  : null
+              }
+            >
               <PlantCard plant={plant} />
             </li>
           ))}
