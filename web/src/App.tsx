@@ -61,7 +61,6 @@ export default function App() {
   const [page, setPage] = useState(initialPage);
   const [loading, setLoading] = useState(false);
   const observer = useRef<IntersectionObserver | null>(null);
-  const fetchedPages = useRef(new Set<number>());
 
   const lastPlantElementRef = useCallback(
     (node: HTMLLIElement | null) => {
@@ -157,7 +156,7 @@ export default function App() {
   }, [isSearchOpen]);
 
   useEffect(() => {
-    if (page !== initialPage && !fetchedPages.current.has(page)) {
+    if (page !== initialPage) {
       const fetchPlants = async () => {
         setLoading(true);
         try {
@@ -169,7 +168,6 @@ export default function App() {
             ...previousPlants,
             ...data.data,
           ]);
-          fetchedPages.current.add(page);
         } catch (error) {
           console.error("Failed to fetch plants:", error);
         } finally {
