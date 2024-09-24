@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent } from "react";
 import styles from "./Search.module.css";
-import { SearchParams } from "./AppHeader";
+import { SearchParams } from "./App";
 
 export default function Search({
   tags,

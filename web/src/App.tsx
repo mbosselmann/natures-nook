@@ -31,6 +31,13 @@ export type SearchParams = {
   categories: string[];
 };
 
+const initialSearchParams: SearchParams = {
+  searchTerm: "",
+  order: "",
+  careLevel: [] as string[],
+  categories: [] as string[],
+};
+
 const findAvailableTags = (plants: Plant[]) => {
   const tags = new Set<string>(plants?.map((plant) => plant.tags).flat());
   return Array.from(tags);
@@ -45,12 +52,8 @@ export default function App() {
     totalPages,
   } = useLoaderData() as PlantData;
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchParams, setSearchParams] = useState<SearchParams>({
-    searchTerm: "",
-    order: "",
-    careLevel: [] as string[],
-    categories: [] as string[],
-  });
+  const [searchParams, setSearchParams] =
+    useState<SearchParams>(initialSearchParams);
   const [filteredPlants, setFilteredPlants] = useState<Plant[]>(catalog);
   const [availableTags, setAvailableTags] = useState<string[]>(() =>
     findAvailableTags(catalog)
@@ -85,7 +88,6 @@ export default function App() {
   }) {
     if (action === "reset") {
       const response = await fetch("/catalog/plants?page=1&limit=12");
-      console.log(page, limit);
       const { data: plants, total, totalPages } = await response.json();
       setFilteredPlants(plants);
       totalPagesRef.current = totalPages;
@@ -186,6 +188,7 @@ export default function App() {
       <AppHeader
         tags={availableTags}
         isSearchOpen={isSearchOpen}
+        initialSearchParams={initialSearchParams}
         onOpenSearch={handleOpenSearch}
         onSearchParams={handleSearchParams}
         onFilterPlants={handleFilterPlants}

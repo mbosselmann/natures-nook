@@ -31,6 +31,7 @@ export default function AppHeader({
   tags,
   onOpenSearch,
   onSearchParams,
+  initialSearchParams,
   isSearchOpen,
   onFilterPlants,
   filteredPlantsLength,
@@ -41,6 +42,7 @@ export default function AppHeader({
   tags: string[];
   onOpenSearch: () => void;
   isSearchOpen: boolean;
+  initialSearchParams: SearchParams;
   onSearchParams: (searchParams: SearchParams) => void;
   onFilterPlants: ({
     searchParams,
@@ -51,24 +53,14 @@ export default function AppHeader({
   }) => void;
 }) {
   const [selectedSearchParams, setSelectedSearchParams] =
-    useState<SearchParams>({
-      searchTerm: "",
-      order: "",
-      careLevel: [] as string[],
-      categories: [] as string[],
-    });
+    useState<SearchParams>(initialSearchParams);
 
   function handleSelectedSearchParams(
     eventTarget: HTMLInputElement,
     action: string
   ) {
     if (action === "reset") {
-      setSelectedSearchParams({
-        searchTerm: "",
-        order: "",
-        careLevel: [],
-        categories: [],
-      });
+      setSelectedSearchParams(initialSearchParams);
       return;
     }
 
