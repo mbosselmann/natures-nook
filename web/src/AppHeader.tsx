@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import styles from "./AppHeader.module.css";
 import SearchIcon from "./assets/icons/SearchIcon";
 import Search from "./Search";
-import { SearchParams } from "./App";
+import { SearchParams } from "./settings/initialSearchParams";
 
 type AppHeaderProps = {
   tags: string[];
-  onSearchParams: (searchParams: SearchParams) => void;
-  initialSearchParams: SearchParams;
+  searchParams: SearchParams;
   onFilterPlants: ({
     searchParams,
     action,
@@ -21,55 +20,12 @@ type AppHeaderProps = {
 
 export default function AppHeader({
   tags,
-  onSearchParams,
-  initialSearchParams,
+  searchParams,
   onFilterPlants,
   filteredPlantsLength,
   totalAmountOfPlants,
 }: AppHeaderProps) {
-  const [selectedSearchParams, setSelectedSearchParams] =
-    useState<SearchParams>(initialSearchParams);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  function handleSelectedSearchParams(
-    eventTarget: HTMLInputElement,
-    action: string
-  ) {
-    if (action === "reset") {
-      setSelectedSearchParams(initialSearchParams);
-      return;
-    }
-
-    if (action === "filter") {
-      const { name, value, checked, type } = eventTarget;
-      const updatedSearchParams = (() => {
-        if (type === "radio" || type === "text") {
-          return {
-            ...selectedSearchParams,
-            [name]: value,
-          };
-        } else if (type === "checkbox") {
-          return {
-            ...selectedSearchParams,
-            [name]: checked
-              ? [
-                  ...(selectedSearchParams[
-                    name as keyof SearchParams
-                  ] as string[]),
-                  value,
-                ]
-              : (
-                  selectedSearchParams[name as keyof SearchParams] as string[]
-                ).filter((item) => item !== value),
-          };
-        }
-        return selectedSearchParams;
-      })();
-      setSelectedSearchParams(updatedSearchParams);
-      onSearchParams(updatedSearchParams);
-      return;
-    }
-  }
 
   function handleOpenSearch() {
     setIsSearchOpen(!isSearchOpen);
@@ -102,9 +58,8 @@ export default function AppHeader({
       {isSearchOpen && (
         <Search
           tags={tags}
-          selectedSearchParams={selectedSearchParams}
+          searchParams={searchParams}
           onFilterPlants={onFilterPlants}
-          onSearchParams={handleSelectedSearchParams}
           onOpenSearch={handleOpenSearch}
         />
       )}

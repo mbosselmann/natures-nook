@@ -2,9 +2,13 @@ import styles from "./App.module.css";
 import PlantCard from "./PlantCard";
 import { useLoaderData } from "react-router-dom";
 import AppHeader from "./AppHeader";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ScrollToTopButton from "./ScrollToTopButton";
 import { PlantData } from "./loader/plantsLoader";
+import {
+  initialSearchParams,
+  SearchParams,
+} from "./settings/initialSearchParams";
 
 type Catalog = {
   data: Plant[];
@@ -32,20 +36,6 @@ export type Plant = {
   tags: string[];
 };
 
-export type SearchParams = {
-  searchTerm: string;
-  order: string;
-  careLevel: string[];
-  categories: string[];
-};
-
-const initialSearchParams: SearchParams = {
-  searchTerm: "",
-  order: "",
-  careLevel: [] as string[],
-  categories: [] as string[],
-};
-
 const findAvailableTags = (plants: Plant[]) => {
   const tags = new Set<string>(plants?.map((plant) => plant.tags).flat());
   return Array.from(tags);
@@ -53,17 +43,20 @@ const findAvailableTags = (plants: Plant[]) => {
 
 export default function App() {
   const catalog = useLoaderData() as PlantData;
+
   const [searchParams, setSearchParams] =
     useState<SearchParams>(initialSearchParams);
   const [
     { data: filteredPlants, total, limit, page, totalPages },
     setFilteredPlants,
   ] = useState<Catalog>(catalog);
-  const [availableTags, setAvailableTags] = useState<string[]>(() =>
-    findAvailableTags(catalog.data)
-  );
   const [loading, setLoading] = useState(false);
   const observer = useRef<IntersectionObserver | null>(null);
+
+  const availableTags = useMemo(
+    () => findAvailableTags(filteredPlants),
+    [filteredPlants]
+  );
 
   const lastPlantElementRef = useCallback(
     (node: HTMLLIElement | null) => {
@@ -82,19 +75,18 @@ export default function App() {
     [loading, page, totalPages]
   );
 
-  async function handleFilterPlants({
+  const handleFilterPlants = async ({
     searchParams,
     action,
   }: {
     searchParams?: SearchParams;
     action: "reset" | "filter";
-  }) {
+  }) => {
     if (action === "reset") {
       const response = await fetch("/catalog/plants?page=1&limit=12");
       const plants = await response.json();
       setFilteredPlants(plants);
       setSearchParams(initialSearchParams);
-      setAvailableTags(() => findAvailableTags(plants.data));
     }
 
     if (action === "filter" && searchParams) {
@@ -108,19 +100,9 @@ export default function App() {
 
       const plants = await response.json();
       setFilteredPlants(plants);
-
-      if (plants.data.length) {
-        const tags = new Set<string>(
-          plants.data.map((plant: Plant) => plant.tags).flat()
-        );
-        setAvailableTags(Array.from(tags));
-      }
+      setSearchParams(searchParams);
     }
-  }
-
-  function handleSearchParams(searchParams: SearchParams) {
-    setSearchParams(searchParams);
-  }
+  };
 
   useEffect(() => {
     if (page > 1 && page !== totalPages + 1) {
@@ -158,11 +140,6 @@ export default function App() {
             ...data,
             data: [...previousPlants.data, ...data.data],
           }));
-
-          setAvailableTags((previousTags) => {
-            const tags = findAvailableTags(data.data);
-            return Array.from(new Set([...previousTags, ...tags]));
-          });
         } catch (error) {
           console.error("Failed to fetch plants:", error);
         } finally {
@@ -177,8 +154,7 @@ export default function App() {
     <main className={styles["main"]}>
       <AppHeader
         tags={availableTags}
-        initialSearchParams={initialSearchParams}
-        onSearchParams={handleSearchParams}
+        searchParams={searchParams}
         onFilterPlants={handleFilterPlants}
         filteredPlantsLength={filteredPlants?.length ?? 0}
         totalAmountOfPlants={total ?? 0}

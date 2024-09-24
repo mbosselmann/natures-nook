@@ -1,16 +1,18 @@
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import styles from "./Search.module.css";
-import { SearchParams } from "./App";
+import {
+  initialSearchParams,
+  SearchParams,
+} from "./settings/initialSearchParams";
 
 export default function Search({
   tags,
-  selectedSearchParams,
-  onSearchParams,
+  searchParams,
   onFilterPlants,
   onOpenSearch,
 }: {
   tags: string[];
-  selectedSearchParams: SearchParams;
+  searchParams: SearchParams;
   onFilterPlants: ({
     searchParams,
     action,
@@ -18,12 +20,11 @@ export default function Search({
     searchParams?: SearchParams;
     action: "reset" | "filter";
   }) => void;
-  onSearchParams: (
-    params: HTMLInputElement,
-    action: "reset" | "filter"
-  ) => void;
   onOpenSearch: () => void;
 }) {
+  const [selectedSearchParams, setSelectedSearchParams] =
+    useState<SearchParams>(searchParams);
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const action = (event.nativeEvent as SubmitEvent)
@@ -35,14 +36,40 @@ export default function Search({
     }
 
     if (action.name === "reset") {
+      setSelectedSearchParams(initialSearchParams);
       onFilterPlants({ action: "reset" });
-      onSearchParams(event.target as HTMLInputElement, "reset");
     }
   }
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-    onSearchParams(event.target as HTMLInputElement, "filter");
+    const { name, value, checked, type } = event.target;
+    const updatedSearchParams = (() => {
+      if (type === "radio" || type === "text") {
+        return {
+          ...selectedSearchParams,
+          [name]: value,
+        };
+      } else if (type === "checkbox") {
+        return {
+          ...selectedSearchParams,
+          [name]: checked
+            ? [
+                ...(selectedSearchParams[
+                  name as keyof SearchParams
+                ] as string[]),
+                value,
+              ]
+            : (
+                selectedSearchParams[name as keyof SearchParams] as string[]
+              ).filter((item) => item !== value),
+        };
+      }
+      return selectedSearchParams;
+    })();
+    setSelectedSearchParams(updatedSearchParams);
+    return;
   }
+
   return (
     <form onSubmit={handleSubmit} className={styles["form"]}>
       <fieldset className={styles["fieldset"]}>
