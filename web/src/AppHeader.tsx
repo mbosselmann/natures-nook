@@ -2,23 +2,46 @@ import { useState } from "react";
 import styles from "./AppHeader.module.css";
 import SearchIcon from "./assets/icons/SearchIcon";
 import Search from "./Search";
+import { SearchParams } from "./App";
 
-export type SearchParams = {
-  searchTerm: string;
-  order: string;
-  careLevel: string[];
-  categories: string[];
-};
+// const tags: string[] = [
+//   "Air Purifying",
+//   "Low Maintenance",
+//   "Drought Tolerant",
+//   "Pet Friendly",
+//   "Fast Growing",
+//   "Flowering",
+//   "Shade Tolerant",
+//   "Medicinal",
+//   "Succulent",
+//   "Tropical",
+//   "Statement Plant",
+//   "Decorative",
+//   "Classic",
+//   "Easy Care",
+//   "Colorful",
+//   "No Soil",
+//   "Unique Texture",
+//   "Trailing",
+//   "Unique Form",
+//   "Holiday Plant",
+// ];
 
 export default function AppHeader({
   tags,
   onOpenSearch,
+  onSearchParams,
   isSearchOpen,
   onFilterPlants,
+  filteredPlantsLength,
+  totalAmountOfPlants,
 }: {
+  filteredPlantsLength: number;
+  totalAmountOfPlants: number;
   tags: string[];
   onOpenSearch: () => void;
   isSearchOpen: boolean;
+  onSearchParams: (searchParams: SearchParams) => void;
   onFilterPlants: ({
     searchParams,
     action,
@@ -51,24 +74,31 @@ export default function AppHeader({
 
     if (action === "filter") {
       const { name, value, checked, type } = eventTarget;
-      setSelectedSearchParams((prevState: SearchParams) => {
+      const updatedSearchParams = (() => {
         if (type === "radio" || type === "text") {
           return {
-            ...prevState,
+            ...selectedSearchParams,
             [name]: value,
           };
         } else if (type === "checkbox") {
           return {
-            ...prevState,
+            ...selectedSearchParams,
             [name]: checked
-              ? [...(prevState[name as keyof SearchParams] as string[]), value]
-              : (prevState[name as keyof SearchParams] as string[]).filter(
-                  (item) => item !== value
-                ),
+              ? [
+                  ...(selectedSearchParams[
+                    name as keyof SearchParams
+                  ] as string[]),
+                  value,
+                ]
+              : (
+                  selectedSearchParams[name as keyof SearchParams] as string[]
+                ).filter((item) => item !== value),
           };
         }
-        return prevState;
-      });
+        return selectedSearchParams;
+      })();
+      setSelectedSearchParams(updatedSearchParams);
+      onSearchParams(updatedSearchParams);
       return;
     }
   }
@@ -77,6 +107,9 @@ export default function AppHeader({
     <header className={styles["header"]}>
       <section className={styles["section"]}>
         <h1 className={styles["headline"]}> Nature's Nook</h1>
+        <p>
+          {filteredPlantsLength} / {totalAmountOfPlants} plants loaded
+        </p>
         <button
           className={styles["button"]}
           type="button"

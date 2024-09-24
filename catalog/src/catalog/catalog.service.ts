@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Plant } from './entities/plant.entity';
 import { Repository } from 'typeorm';
 import { ReadModel } from './entities/read-model.entity';
+import { SearchParams } from './catalog.types';
 
 @Injectable()
 export class CatalogService implements OnModuleInit {
@@ -13,8 +14,6 @@ export class CatalogService implements OnModuleInit {
     private readonly plantRepository: Repository<Plant>,
     @InjectRepository(ReadModel)
     private readonly readModelRepository: Repository<ReadModel>,
-    // @InjectRepository(PlantSize)
-    // private readonly plantSizeRepository: Repository<PlantSize>,
   ) {}
 
   async getAllPlants(page: number = 1, limit: number = 12) {
@@ -57,6 +56,76 @@ export class CatalogService implements OnModuleInit {
         ...size,
         amount: size?.readModels?.length ?? 0,
       })),
+    };
+  }
+
+  async searchPlants(
+    searchParams: SearchParams,
+    page: number = 1,
+    limit: number = 12,
+  ) {
+    const search = searchParams?.searchTerm.toLowerCase();
+    const catalog = await this.plantRepository.find({
+      relations: ['sizes', 'sizes.readModels'],
+    });
+
+    let filtered = catalog;
+
+    if (search) {
+      filtered = filtered.filter((plant) => {
+        return (
+          plant.name.toLowerCase().includes(search) ||
+          plant.scientific_name.toLowerCase().includes(search)
+        );
+      });
+    }
+    if (searchParams?.careLevel.length) {
+      filtered = filtered.filter((plant) => {
+        return searchParams.careLevel.includes(plant.care_level);
+      });
+    }
+
+    if (searchParams?.categories.length) {
+      filtered = filtered.filter((plant) => {
+        return searchParams.categories.every((category) =>
+          plant.tags.includes(category),
+        );
+      });
+    }
+
+    if (searchParams?.order) {
+      const params = searchParams.order.split('-');
+      const order = params[0];
+      const direction = params[1];
+
+      if (order === 'price') {
+        filtered = [...filtered].sort((a, b) => {
+          if (direction === 'asc') {
+            return a.sizes[0].price > b.sizes[0].price ? 1 : -1;
+          } else {
+            return a.sizes[0].price < b.sizes[0].price ? 1 : -1;
+          }
+        });
+      }
+
+      filtered = [...filtered].sort((a, b) => {
+        if (direction === 'asc') {
+          return a[order] > b[order] ? 1 : -1;
+        } else {
+          return a[order] < b[order] ? 1 : -1;
+        }
+      });
+    }
+    const total = filtered.length;
+    const skip = (page - 1) * limit;
+    filtered = filtered.slice(skip, skip + limit);
+
+    return {
+      data: filtered,
+      total: total,
+      page,
+      limit,
+      totalPages: Math.ceil(filtered.length / limit),
     };
   }
 

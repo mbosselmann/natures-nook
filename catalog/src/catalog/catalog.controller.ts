@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CatalogService } from './catalog.service';
+import { SearchParams } from './catalog.types';
 
 @Controller('catalog')
 export class CatalogController {
@@ -13,5 +14,14 @@ export class CatalogController {
   @Get('plant/:id')
   getPlantById(@Param('id') id: string) {
     return this.catalogService.getPlantById(Number(id));
+  }
+
+  @Post('search')
+  searchPlants(@Body() searchParams: SearchParams) {
+    return this.catalogService.searchPlants(
+      searchParams,
+      searchParams.page,
+      searchParams.limit,
+    );
   }
 }

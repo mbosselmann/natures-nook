@@ -1,33 +1,10 @@
 import styles from "./App.module.css";
 import PlantCard from "./PlantCard";
 import { useLoaderData } from "react-router-dom";
-import AppHeader, { SearchParams } from "./AppHeader";
+import AppHeader from "./AppHeader";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ScrollToTopButton from "./ScrollToTopButton";
 import { PlantData } from "./loader/plantsLoader";
-
-const tags: string[] = [
-  "Air Purifying",
-  "Low Maintenance",
-  "Drought Tolerant",
-  "Pet Friendly",
-  "Fast Growing",
-  "Flowering",
-  "Shade Tolerant",
-  "Medicinal",
-  "Succulent",
-  "Tropical",
-  "Statement Plant",
-  "Decorative",
-  "Classic",
-  "Easy Care",
-  "Colorful",
-  "No Soil",
-  "Unique Texture",
-  "Trailing",
-  "Unique Form",
-  "Holiday Plant",
-];
 
 export type Plant = {
   id: number;
@@ -47,6 +24,18 @@ export type Plant = {
   tags: string[];
 };
 
+export type SearchParams = {
+  searchTerm: string;
+  order: string;
+  careLevel: string[];
+  categories: string[];
+};
+
+const findAvailableTags = (plants: Plant[]) => {
+  const tags = new Set<string>(plants?.map((plant) => plant.tags).flat());
+  return Array.from(tags);
+};
+
 export default function App() {
   const {
     data: catalog,
@@ -56,18 +45,29 @@ export default function App() {
     totalPages,
   } = useLoaderData() as PlantData;
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchParams, setSearchParams] = useState<SearchParams>({
+    searchTerm: "",
+    order: "",
+    careLevel: [] as string[],
+    categories: [] as string[],
+  });
   const [filteredPlants, setFilteredPlants] = useState<Plant[]>(catalog);
-  const [availableTags, setAvailableTags] = useState<string[]>(tags);
+  const [availableTags, setAvailableTags] = useState<string[]>(() =>
+    findAvailableTags(catalog)
+  );
+  const [totalAmountOfPlants, setTotalAmountOfPlants] = useState(total);
   const [page, setPage] = useState(initialPage);
   const [loading, setLoading] = useState(false);
   const observer = useRef<IntersectionObserver | null>(null);
+  const fetchedPage = useRef<number>(initialPage);
+  const totalPagesRef = useRef<number>(totalPages);
 
   const lastPlantElementRef = useCallback(
     (node: HTMLLIElement | null) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && page < totalPages) {
+        if (entries[0].isIntersecting && page <= totalPages) {
           setPage((prevPage) => prevPage + 1);
         }
       });
@@ -76,7 +76,7 @@ export default function App() {
     [totalPages, page, loading]
   );
 
-  function handleFilterPlants({
+  async function handleFilterPlants({
     searchParams,
     action,
   }: {
@@ -84,67 +84,47 @@ export default function App() {
     action: "reset" | "filter";
   }) {
     if (action === "reset") {
-      setFilteredPlants(catalog);
-      setAvailableTags(tags);
-      return;
+      const response = await fetch("/catalog/plants?page=1&limit=12");
+      console.log(page, limit);
+      const { data: plants, total, totalPages } = await response.json();
+      setFilteredPlants(plants);
+      totalPagesRef.current = totalPages;
+      fetchedPage.current = 1;
+      setAvailableTags(() => findAvailableTags(plants));
+      setTotalAmountOfPlants(total);
     }
 
-    if (action === "filter") {
-      const search = searchParams?.searchTerm.toLowerCase();
-      let filtered: Plant[] = catalog;
-      if (search) {
-        filtered = catalog?.filter((plant) => {
-          return (
-            plant.name.toLowerCase().includes(search) ||
-            plant.scientific_name.toLowerCase().includes(search)
-          );
-        });
-      }
-      if (searchParams?.careLevel.length) {
-        filtered = filtered.filter((plant) => {
-          return searchParams.careLevel.includes(plant.care_level);
-        });
-      }
+    if (action === "filter" && searchParams) {
+      const response = await fetch("/catalog/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(searchParams),
+      });
 
-      if (searchParams?.categories.length) {
-        filtered = filtered.filter((plant) => {
-          return searchParams.categories.every((category) =>
-            plant.tags.includes(category)
-          );
-        });
+      const { data: plants, totalPages, total } = await response.json();
+      setFilteredPlants(plants);
+      setPage(1);
+      fetchedPage.current = 1;
+      totalPagesRef.current = totalPages;
+      setTotalAmountOfPlants(total);
+
+      if (plants.length) {
+        const tags = new Set<string>(
+          plants.map((plant: Plant) => plant.tags).flat()
+        );
+        setAvailableTags(Array.from(tags));
       }
-
-      if (searchParams?.order) {
-        const params = searchParams.order.split("-");
-        const order = params[0] as keyof Plant;
-        const direction = params[1];
-
-        if (order === "price") {
-          filtered = [...filtered].sort((a, b) => {
-            if (direction === "asc") {
-              return a.sizes[0].price > b.sizes[0].price ? 1 : -1;
-            } else {
-              return a.sizes[0].price < b.sizes[0].price ? 1 : -1;
-            }
-          });
-        }
-
-        filtered = [...filtered].sort((a, b) => {
-          if (direction === "asc") {
-            return a[order] > b[order] ? 1 : -1;
-          } else {
-            return a[order] < b[order] ? 1 : -1;
-          }
-        });
-      }
-      const tags = new Set(filtered.map((plant) => plant.tags).flat());
-      setAvailableTags(Array.from(tags));
-      setFilteredPlants(filtered);
     }
   }
 
   function handleOpenSearch() {
     setIsSearchOpen(!isSearchOpen);
+  }
+
+  function handleSearchParams(searchParams: SearchParams) {
+    setSearchParams(searchParams);
   }
 
   useEffect(() => {
@@ -156,18 +136,41 @@ export default function App() {
   }, [isSearchOpen]);
 
   useEffect(() => {
-    if (page !== initialPage) {
+    if (page !== initialPage && page !== fetchedPage.current) {
       const fetchPlants = async () => {
         setLoading(true);
         try {
-          const response = await fetch(
-            `/catalog/plants?page=${page}&limit=${limit}`
-          );
-          const data: PlantData = await response.json();
-          setFilteredPlants((previousPlants) => [
-            ...previousPlants,
-            ...data.data,
-          ]);
+          let data = [];
+          if (
+            searchParams.searchTerm ||
+            searchParams.categories.length ||
+            searchParams.careLevel.length ||
+            searchParams.order
+          ) {
+            const response = await fetch("/catalog/search", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ ...searchParams, page, limit }),
+            });
+            const { data: plants } = await response.json();
+            data = plants;
+          } else {
+            const response = await fetch(
+              `/catalog/plants?page=${page}&limit=${limit}`
+            );
+            const plants: PlantData = await response.json();
+            data = plants.data;
+          }
+          setFilteredPlants((previousPlants) => [...previousPlants, ...data]);
+
+          setAvailableTags((previousTags) => {
+            const tags = findAvailableTags(data);
+            return Array.from(new Set([...previousTags, ...tags]));
+          });
+
+          fetchedPage.current = page;
         } catch (error) {
           console.error("Failed to fetch plants:", error);
         } finally {
@@ -176,7 +179,7 @@ export default function App() {
       };
       fetchPlants();
     }
-  }, [page, limit, initialPage]);
+  }, [page, limit, initialPage, searchParams]);
 
   return (
     <main className={styles["main"]}>
@@ -184,13 +187,12 @@ export default function App() {
         tags={availableTags}
         isSearchOpen={isSearchOpen}
         onOpenSearch={handleOpenSearch}
+        onSearchParams={handleSearchParams}
         onFilterPlants={handleFilterPlants}
+        filteredPlantsLength={filteredPlants?.length ?? 0}
+        totalAmountOfPlants={totalAmountOfPlants}
       />
-      {filteredPlants?.length && (
-        <p>
-          {filteredPlants?.length} / {total} plants loaded
-        </p>
-      )}
+
       {filteredPlants?.length ? (
         <ul className={styles["plant-list-grid"]}>
           {filteredPlants.map((plant, index) => (
