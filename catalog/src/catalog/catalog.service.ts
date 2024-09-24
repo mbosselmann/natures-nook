@@ -100,10 +100,10 @@ export class CatalogService implements OnModuleInit {
 
       if (order === 'price') {
         filtered = [...filtered].sort((a, b) => {
-          if (direction === 'asc') {
-            return a.sizes[0].price > b.sizes[0].price ? 1 : -1;
+          if (direction === 'desc') {
+            return a.sizes[0].price - b.sizes[0].price;
           } else {
-            return a.sizes[0].price < b.sizes[0].price ? 1 : -1;
+            return b.sizes[0].price - a.sizes[0].price;
           }
         });
       }
