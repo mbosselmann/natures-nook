@@ -8,10 +8,6 @@
   position: relative;
 }
 
-.no-scroll {
-  overflow: hidden;
-}
-
 .plant-list-grid {
   display: grid;
   margin: 0.5rem auto 1rem;

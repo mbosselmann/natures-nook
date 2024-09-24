@@ -1,49 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./AppHeader.module.css";
 import SearchIcon from "./assets/icons/SearchIcon";
 import Search from "./Search";
 import { SearchParams } from "./App";
 
-// const tags: string[] = [
-//   "Air Purifying",
-//   "Low Maintenance",
-//   "Drought Tolerant",
-//   "Pet Friendly",
-//   "Fast Growing",
-//   "Flowering",
-//   "Shade Tolerant",
-//   "Medicinal",
-//   "Succulent",
-//   "Tropical",
-//   "Statement Plant",
-//   "Decorative",
-//   "Classic",
-//   "Easy Care",
-//   "Colorful",
-//   "No Soil",
-//   "Unique Texture",
-//   "Trailing",
-//   "Unique Form",
-//   "Holiday Plant",
-// ];
-
-export default function AppHeader({
-  tags,
-  onOpenSearch,
-  onSearchParams,
-  initialSearchParams,
-  isSearchOpen,
-  onFilterPlants,
-  filteredPlantsLength,
-  totalAmountOfPlants,
-}: {
-  filteredPlantsLength: number;
-  totalAmountOfPlants: number;
+type AppHeaderProps = {
   tags: string[];
-  onOpenSearch: () => void;
-  isSearchOpen: boolean;
-  initialSearchParams: SearchParams;
   onSearchParams: (searchParams: SearchParams) => void;
+  initialSearchParams: SearchParams;
   onFilterPlants: ({
     searchParams,
     action,
@@ -51,9 +15,21 @@ export default function AppHeader({
     searchParams?: SearchParams;
     action: "reset" | "filter";
   }) => void;
-}) {
+  filteredPlantsLength: number;
+  totalAmountOfPlants: number;
+};
+
+export default function AppHeader({
+  tags,
+  onSearchParams,
+  initialSearchParams,
+  onFilterPlants,
+  filteredPlantsLength,
+  totalAmountOfPlants,
+}: AppHeaderProps) {
   const [selectedSearchParams, setSelectedSearchParams] =
     useState<SearchParams>(initialSearchParams);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   function handleSelectedSearchParams(
     eventTarget: HTMLInputElement,
@@ -95,6 +71,18 @@ export default function AppHeader({
     }
   }
 
+  function handleOpenSearch() {
+    setIsSearchOpen(!isSearchOpen);
+  }
+
+  useEffect(() => {
+    if (isSearchOpen) {
+      document.body.classList.add(styles["no-scroll"]);
+    } else {
+      document.body.classList.remove(styles["no-scroll"]);
+    }
+  }, [isSearchOpen]);
+
   return (
     <header className={styles["header"]}>
       <section className={styles["section"]}>
@@ -105,7 +93,7 @@ export default function AppHeader({
         <button
           className={styles["button"]}
           type="button"
-          onClick={onOpenSearch}
+          onClick={handleOpenSearch}
           aria-label="search plant"
         >
           <SearchIcon color={isSearchOpen ? "#22577a" : "#007f5f"} />
@@ -117,7 +105,7 @@ export default function AppHeader({
           selectedSearchParams={selectedSearchParams}
           onFilterPlants={onFilterPlants}
           onSearchParams={handleSelectedSearchParams}
-          onOpenSearch={onOpenSearch}
+          onOpenSearch={handleOpenSearch}
         />
       )}
     </header>

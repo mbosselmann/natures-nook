@@ -125,7 +125,7 @@ export class CatalogService implements OnModuleInit {
       total: total,
       page,
       limit,
-      totalPages: Math.ceil(filtered.length / limit),
+      totalPages: Math.ceil(total / limit),
     };
   }
 
