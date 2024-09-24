@@ -7,8 +7,8 @@ export class CatalogController {
   constructor(private readonly catalogService: CatalogService) {}
 
   @Get('plants')
-  getAllPlants(@Query('page') page: string, @Query('limit') limit: string) {
-    return this.catalogService.getAllPlants(Number(page), Number(limit));
+  getPlants(@Query('page') page: string, @Query('limit') limit: string) {
+    return this.catalogService.getPlants(Number(page), Number(limit));
   }
 
   @Get('plant/:id')

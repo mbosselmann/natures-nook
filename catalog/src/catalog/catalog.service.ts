@@ -16,7 +16,7 @@ export class CatalogService implements OnModuleInit {
     private readonly readModelRepository: Repository<ReadModel>,
   ) {}
 
-  async getAllPlants(page: number = 1, limit: number = 12) {
+  async getPlants(page: number = 1, limit: number = 12) {
     const [catalog, total] = await this.plantRepository.findAndCount({
       relations: ['sizes', 'sizes.readModels'],
       skip: (page - 1) * limit,
