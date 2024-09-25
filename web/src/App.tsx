@@ -1,20 +1,11 @@
 import styles from "./App.module.css";
-import { useLoaderData } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { PlantData } from "./loader/plantsLoader";
 import {
   initialSearchParams,
   SearchParams,
 } from "./settings/initialSearchParams";
 import { AppHeader, PlantCard, ScrollToTopButton } from "./components";
-
-type Catalog = {
-  data: Plant[];
-  total: number;
-  page: number;
-  totalPages: number;
-  limit: number;
-};
+import { usePlants } from "./hooks/usePlants";
 
 export type Plant = {
   id: number;
@@ -40,16 +31,13 @@ const findAvailableTags = (plants: Plant[]) => {
 };
 
 export default function App() {
-  const catalog = useLoaderData() as PlantData;
-
   const [searchParams, setSearchParams] =
     useState<SearchParams>(initialSearchParams);
-  const [
-    { data: filteredPlants, total, limit, page, totalPages },
-    setFilteredPlants,
-  ] = useState<Catalog>(catalog);
+  const [plants, setFilteredPlants] = usePlants();
+  const { data: filteredPlants, total, limit, page, totalPages } = plants;
   const [loading, setLoading] = useState(false);
   const observer = useRef<IntersectionObserver | null>(null);
+  const fetchedPage = useRef<number>(page ?? 0);
 
   const availableTags = useMemo(
     () => findAvailableTags(filteredPlants),
@@ -70,7 +58,7 @@ export default function App() {
       });
       if (node) observer.current.observe(node);
     },
-    [loading, page, totalPages]
+    [loading, page, setFilteredPlants, totalPages]
   );
 
   const handleFilterPlants = async ({
@@ -85,6 +73,7 @@ export default function App() {
       const plants = await response.json();
       setFilteredPlants(plants);
       setSearchParams(initialSearchParams);
+      fetchedPage.current = 1;
     }
 
     if (action === "filter" && searchParams) {
@@ -99,11 +88,16 @@ export default function App() {
       const plants = await response.json();
       setFilteredPlants(plants);
       setSearchParams(searchParams);
+      fetchedPage.current = 1;
     }
   };
 
   useEffect(() => {
-    if (page > 1 && page !== totalPages + 1) {
+    if (fetchedPage.current === totalPages) {
+      return;
+    }
+
+    if (page > 1 && page <= totalPages) {
       const fetchPlants = async () => {
         setLoading(true);
         try {
@@ -138,6 +132,7 @@ export default function App() {
             ...data,
             data: [...previousPlants.data, ...data.data],
           }));
+          fetchedPage.current = page;
         } catch (error) {
           console.error("Failed to fetch plants:", error);
         } finally {
@@ -146,7 +141,7 @@ export default function App() {
       };
       fetchPlants();
     }
-  }, [page, limit, searchParams, totalPages]);
+  }, [page, limit, searchParams, totalPages, setFilteredPlants, total]);
 
   return (
     <main className={styles["main"]}>

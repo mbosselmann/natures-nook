@@ -17,12 +17,12 @@ import { AppLayout } from "./AppLayout.tsx";
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    loader: plantsLoader,
     children: [
       {
         path: "/",
         element: <App />,
         errorElement: <ErrorPage />,
-        loader: plantsLoader,
       },
       {
         path: "/plant/:id",
