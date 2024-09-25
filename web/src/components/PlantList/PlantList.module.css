@@ -1,0 +1,9 @@
+.plant-list-grid {
+  display: grid;
+  margin: 0.5rem auto 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 1rem;
+  padding: 0.5rem;
+  max-width: 800px;
+  list-style-type: none;
+}

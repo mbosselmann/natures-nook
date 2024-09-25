@@ -4,8 +4,9 @@ import {
   initialSearchParams,
   SearchParams,
 } from "./settings/initialSearchParams";
-import { AppHeader, PlantCard, ScrollToTopButton } from "./components";
+import { AppHeader, ScrollToTopButton } from "./components";
 import { usePlants } from "./hooks/usePlants";
+import PlantList from "./components/PlantList";
 
 export type Plant = {
   id: number;
@@ -36,29 +37,11 @@ export default function App() {
   const [plants, setFilteredPlants] = usePlants();
   const { data: filteredPlants, total, limit, page, totalPages } = plants;
   const [loading, setLoading] = useState(false);
-  const observer = useRef<IntersectionObserver | null>(null);
   const fetchedPage = useRef<number>(page ?? 0);
 
   const availableTags = useMemo(
     () => findAvailableTags(filteredPlants),
     [filteredPlants]
-  );
-
-  const lastPlantElementRef = useCallback(
-    (node: HTMLLIElement | null) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && page <= totalPages) {
-          setFilteredPlants((prevState) => ({
-            ...prevState,
-            page: prevState.page + 1,
-          }));
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading, page, setFilteredPlants, totalPages]
   );
 
   const handleFilterPlants = async ({
@@ -91,6 +74,13 @@ export default function App() {
       fetchedPage.current = 1;
     }
   };
+
+  const handleUpdatePlantsPage = useCallback(() => {
+    setFilteredPlants((prevState) => ({
+      ...prevState,
+      page: prevState.page + 1,
+    }));
+  }, [setFilteredPlants]);
 
   useEffect(() => {
     if (fetchedPage.current === totalPages) {
@@ -154,20 +144,11 @@ export default function App() {
       />
 
       {filteredPlants?.length ? (
-        <ul className={styles["plant-list-grid"]}>
-          {filteredPlants.map((plant, index) => (
-            <li
-              key={plant.id}
-              ref={
-                filteredPlants.length === index + 1 && index + 1 !== total
-                  ? lastPlantElementRef
-                  : null
-              }
-            >
-              <PlantCard plant={plant} />
-            </li>
-          ))}
-        </ul>
+        <PlantList
+          plants={plants}
+          loading={loading}
+          onUpdatePlantsPage={handleUpdatePlantsPage}
+        />
       ) : (
         <p className={styles["no-results"]}>No results found.</p>
       )}
