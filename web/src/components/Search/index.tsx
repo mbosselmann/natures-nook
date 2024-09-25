@@ -3,7 +3,7 @@ import styles from "./Search.module.css";
 import {
   initialSearchParams,
   SearchParams,
-} from "./settings/initialSearchParams";
+} from "../../settings/initialSearchParams";
 
 export default function Search({
   tags,

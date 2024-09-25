@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./AppHeader.module.css";
-import SearchIcon from "./assets/icons/SearchIcon";
-import Search from "./Search";
-import { SearchParams } from "./settings/initialSearchParams";
+import SearchIcon from "../../assets/icons/SearchIcon";
+import Search from "../Search";
+import { SearchParams } from "../../settings/initialSearchParams";
 
 type AppHeaderProps = {
   tags: string[];

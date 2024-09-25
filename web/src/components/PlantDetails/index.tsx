@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { Plant } from "./App";
 import styles from "./PlantDetails.module.css";
-import ScrollToTopButton from "./ScrollToTopButton";
-import plantUrl from "./assets/green-plant.webp";
-import backgroundUrl from "./assets/plant copy.svg";
-import ArrowLeftIcon from "./assets/icons/ArrowLeftIcon";
+import ScrollToTopButton from "../ScrollToTopButton";
+import plantUrl from "../../assets/green-plant.webp";
+import backgroundUrl from "../../assets/plant copy.svg";
+import ArrowLeftIcon from "../../assets/icons/ArrowLeftIcon";
+import { Plant } from "../../App";
 
-export default function PlantDetailsPage({ plant }: { plant: Plant }) {
+export default function PlantDetails({ plant }: { plant: Plant }) {
   return (
     <main className={styles["main"]}>
       <header className={styles["header"]}>

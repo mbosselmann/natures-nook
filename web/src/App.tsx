@@ -1,14 +1,12 @@
 import styles from "./App.module.css";
-import PlantCard from "./PlantCard";
 import { useLoaderData } from "react-router-dom";
-import AppHeader from "./AppHeader";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import ScrollToTopButton from "./ScrollToTopButton";
 import { PlantData } from "./loader/plantsLoader";
 import {
   initialSearchParams,
   SearchParams,
 } from "./settings/initialSearchParams";
+import { AppHeader, PlantCard, ScrollToTopButton } from "./components";
 
 type Catalog = {
   data: Plant[];
