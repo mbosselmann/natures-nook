@@ -83,7 +83,7 @@ export default function PlantOverview() {
   }, [setFilteredPlants]);
 
   useEffect(() => {
-    if (fetchedPage.current === totalPages) {
+    if (fetchedPage.current === totalPages || fetchedPage.current === page) {
       return;
     }
 
