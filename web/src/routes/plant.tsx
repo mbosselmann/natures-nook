@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router-dom";
-import { Plant } from "../App";
+import { Plant } from "../components/PlantOverview";
 import { PlantDetails } from "../components";
 
 export default function PlantDetailsPage() {

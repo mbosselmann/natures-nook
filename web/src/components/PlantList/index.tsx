@@ -1,7 +1,7 @@
 import styles from "./PlantList.module.css";
 import { useCallback, useRef } from "react";
 import { PlantCard } from "..";
-import { Catalog } from "../../AppLayout";
+import { Catalog } from "../../App";
 
 export default function PlantList({
   plants,

@@ -1,6 +1,5 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
 import "./index.css";
 import {
   createBrowserRouter,
@@ -12,16 +11,17 @@ import PlantDetailsPage from "./routes/plant.tsx";
 
 import { plantLoader } from "./loader/plantLoader";
 import { plantsLoader } from "./loader/plantsLoader";
-import { AppLayout } from "./AppLayout.tsx";
+import { App } from "./App.tsx";
+import HomePage from "./routes/home.tsx";
 
 const router = createBrowserRouter([
   {
-    element: <AppLayout />,
+    element: <App />,
     loader: plantsLoader,
     children: [
       {
         path: "/",
-        element: <App />,
+        element: <HomePage />,
         errorElement: <ErrorPage />,
       },
       {

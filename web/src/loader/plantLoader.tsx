@@ -1,5 +1,5 @@
 import { LoaderFunction, LoaderFunctionArgs } from "react-router-dom";
-import { Plant } from "../App";
+import { Plant } from "../components/PlantOverview";
 
 export const plantLoader: LoaderFunction = async ({
   params: { id },

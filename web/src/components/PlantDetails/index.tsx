@@ -4,7 +4,7 @@ import ScrollToTopButton from "../ScrollToTopButton";
 import plantUrl from "../../assets/green-plant.webp";
 import backgroundUrl from "../../assets/plant copy.svg";
 import ArrowLeftIcon from "../../assets/icons/ArrowLeftIcon";
-import { Plant } from "../../App";
+import { Plant } from "../PlantOverview";
 
 export default function PlantDetails({ plant }: { plant: Plant }) {
   return (

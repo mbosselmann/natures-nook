@@ -1,5 +1,5 @@
 import { LoaderFunction } from "react-router-dom";
-import { Plant } from "../App";
+import { Plant } from "../components/PlantOverview";
 
 export type PlantData = {
   data: Plant[];

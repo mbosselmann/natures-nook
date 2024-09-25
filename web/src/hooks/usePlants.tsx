@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import { ContextType } from "../AppLayout";
+import { ContextType } from "../App";
 
 export function usePlants() {
   return useOutletContext<ContextType>();
