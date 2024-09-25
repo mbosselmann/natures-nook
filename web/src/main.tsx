@@ -7,7 +7,7 @@ import {
   LoaderFunction,
   RouterProvider,
 } from "react-router-dom";
-import ErrorPage from "./routes/errorpage.tsx";
+import ErrorPage from "./routes/error.tsx";
 import PlantDetailsPage from "./routes/plant.tsx";
 
 import { plantLoader } from "./loader/plantLoader";
