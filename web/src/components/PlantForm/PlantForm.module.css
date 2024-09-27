@@ -1,0 +1,35 @@
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.quantity-input {
+  -webkit-appearance: none;
+  appearance: textfield;
+  text-align: center;
+  border: none;
+  font-family: inherit;
+  padding: 0.5rem;
+}
+
+.quantity-button {
+  background-color: #036666;
+  border: none;
+  color: #fff;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quantity-button:disabled {
+  background-color: #00000090;
+  cursor: not-allowed;
+}

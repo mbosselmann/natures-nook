@@ -5,6 +5,7 @@ import plantUrl from "../../assets/green-plant.webp";
 import backgroundUrl from "../../assets/plant copy.svg";
 import ArrowLeftIcon from "../../assets/icons/ArrowLeftIcon";
 import { Plant } from "../PlantOverview";
+import PlantForm from "../PlantForm";
 
 export default function PlantDetails({ plant }: { plant: Plant }) {
   return (
@@ -26,8 +27,26 @@ export default function PlantDetails({ plant }: { plant: Plant }) {
         src={plantUrl}
         alt={plant.name}
       />
+      <h2>{plant.scientific_name}</h2>
+      <ul className={styles["sizes-list"]}>
+        {plant.sizes.map((size, index) => (
+          <li
+            key={index}
+            className={size.amount === 0 ? styles["sizes-not-available"] : ""}
+          >
+            <h4>{size.size}</h4>
+            <ul>
+              <li>{size.height}</li>
+              <li>€ {size.price}</li>
+            </ul>
+            <span className={styles["available-text"]}>
+              {size.amount === 0 ? "Not available" : size.amount + " available"}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <PlantForm sizes={plant.sizes} />
       <section className={styles["section"]}>
-        <h2>{plant.scientific_name}</h2>
         <p className={styles["description"]}>{plant.description}</p>
         <div>
           <h3>Light requirements:</h3>
@@ -41,32 +60,6 @@ export default function PlantDetails({ plant }: { plant: Plant }) {
         <p>{plant.water_requirements}</p>
         <h3>Care level:</h3>
         <p>{plant.care_level}</p>
-        <div>
-          <h3>Sizes:</h3>
-          <ul className={styles["sizes-list"]}>
-            {plant.sizes.map((size, index) => (
-              <li
-                key={index}
-                className={
-                  size.amount === 0 ? styles["sizes-not-available"] : ""
-                }
-              >
-                <h4>{size.size}</h4>
-                <ul>
-                  <li>{size.height}</li>
-                  <li>{size.price} EUR</li>
-                  <li>Amount: {size.amount}</li>
-                </ul>
-                <button
-                  className={styles["available-text"]}
-                  disabled={!!size.amount}
-                >
-                  {size.amount === 0 ? "Not available" : "Available"}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
         <ul className={styles["tags"]}>
           {plant.tags.map((tag) => {
             return <li key={tag}>{tag}</li>;
