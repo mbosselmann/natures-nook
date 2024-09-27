@@ -95,3 +95,27 @@ h2 {
   z-index: -1;
   opacity: 0.4;
 }
+
+.sizes-list {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  gap: 0.2rem;
+  flex-wrap: wrap;
+}
+
+.sizes-list > li {
+  flex: 0 0 48%;
+}
+
+.sizes-not-available {
+  color: #00000090;
+}
+
+.available-text {
+  color: #000;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}

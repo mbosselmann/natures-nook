@@ -17,7 +17,7 @@ const PlantCard = ({ plant }: { plant: Plant }) => {
           : {plant.description}
         </p>
         <p className={styles["card__description_facts"]}>
-          <span>from: {plant.sizes[0].price}</span>
+          <span>from: {plant.sizes[0].price} EUR</span>
           <span className={styles["card__description--highlighted"]}>
             {plant.care_level}
           </span>

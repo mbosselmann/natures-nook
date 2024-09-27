@@ -43,13 +43,26 @@ export default function PlantDetails({ plant }: { plant: Plant }) {
         <p>{plant.care_level}</p>
         <div>
           <h3>Sizes:</h3>
-          <ul>
+          <ul className={styles["sizes-list"]}>
             {plant.sizes.map((size, index) => (
-              <li key={index}>
-                <h4>
-                  {size.height} - {size.size}
-                </h4>
-                {size.price}, Amount: {size.amount}
+              <li
+                key={index}
+                className={
+                  size.amount === 0 ? styles["sizes-not-available"] : ""
+                }
+              >
+                <h4>{size.size}</h4>
+                <ul>
+                  <li>{size.height}</li>
+                  <li>{size.price} EUR</li>
+                  <li>Amount: {size.amount}</li>
+                </ul>
+                <button
+                  className={styles["available-text"]}
+                  disabled={!!size.amount}
+                >
+                  {size.amount === 0 ? "Not available" : "Available"}
+                </button>
               </li>
             ))}
           </ul>
