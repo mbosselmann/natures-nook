@@ -28,24 +28,9 @@ export default function PlantDetails({ plant }: { plant: Plant }) {
         alt={plant.name}
       />
       <h2>{plant.scientific_name}</h2>
-      <ul className={styles["sizes-list"]}>
-        {plant.sizes.map((size, index) => (
-          <li
-            key={index}
-            className={size.amount === 0 ? styles["sizes-not-available"] : ""}
-          >
-            <h4>{size.size}</h4>
-            <ul>
-              <li>{size.height}</li>
-              <li>€ {size.price}</li>
-            </ul>
-            <span className={styles["available-text"]}>
-              {size.amount === 0 ? "Not available" : size.amount + " available"}
-            </span>
-          </li>
-        ))}
-      </ul>
-      <PlantForm sizes={plant.sizes} />
+      <div>
+        <PlantForm sizes={plant.sizes} />
+      </div>
       <section className={styles["section"]}>
         <p className={styles["description"]}>{plant.description}</p>
         <div>

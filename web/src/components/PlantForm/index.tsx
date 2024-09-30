@@ -19,59 +19,72 @@ export default function PlantForm({ sizes }: PlantFormProps) {
   }, {});
 
   const [quantity, setQuantity] = useState<Quantity>(initialQuantity);
-  console.log(quantity);
+
   return (
     <form className={styles["form"]}>
-      {sizes.map(({ size, amount }, index) => (
-        <div key={index} className={styles["quantity"]}>
-          <label className={"sr-only"} htmlFor={size}>
-            Amount {size}:
+      {sizes.map(({ size, amount, height, price }) => (
+        <div className={styles["sizes-grid"]} key={size}>
+          <label htmlFor={size}>
+            <span className={styles["size-name"]}>{size}</span>
+            <br />
+            {height}
+            <br />€ {price}
+            <br />
+            <span className={styles["size-available"]}>
+              {amount === 0 ? "Not available" : amount + " available"}
+            </span>
           </label>
-          <button
-            className={styles["quantity-button"]}
-            type="button"
-            disabled={quantity[size] <= 0}
-            onClick={() => {
-              if (quantity[size] === 0) return;
-              setQuantity((prev) => ({
-                ...prev,
-                [size]: prev[size] - 1,
-              }));
-            }}
-          >
-            <MinusIcon />
-          </button>
-          <input
-            className={styles["quantity-input"]}
-            type="number"
-            id={size}
-            name={size}
-            min="1"
-            max={amount}
-            value={quantity[size]}
-            onChange={(event) => {
-              setQuantity((prev) => ({
-                ...prev,
-                [size]: parseInt(event.target.value),
-              }));
-            }}
-          />
-          <button
-            className={styles["quantity-button"]}
-            type="button"
-            disabled={quantity[size] > amount}
-            onClick={() => {
-              setQuantity((prev) => ({
-                ...prev,
-                [size]: prev[size] + 1,
-              }));
-            }}
-          >
-            <PlusIcon />
-          </button>
+          <div className={styles["quantity"]}>
+            <button
+              className={`${styles["button"]} ${styles["quantity-button"]}`}
+              type="button"
+              disabled={quantity[size] <= 0}
+              onClick={() => {
+                if (quantity[size] === 0) return;
+                setQuantity((prev) => ({
+                  ...prev,
+                  [size]: prev[size] - 1,
+                }));
+              }}
+            >
+              <MinusIcon />
+            </button>
+            <input
+              className={styles["quantity-input"]}
+              type="number"
+              id={size}
+              name={size}
+              min="0"
+              max={amount}
+              value={quantity[size]}
+              onChange={(event) => {
+                setQuantity((prev) => ({
+                  ...prev,
+                  [size]: parseInt(event.target.value),
+                }));
+              }}
+            />
+            <button
+              className={`${styles["button"]} ${styles["quantity-button"]}`}
+              type="button"
+              disabled={quantity[size] >= amount}
+              onClick={() => {
+                setQuantity((prev) => ({
+                  ...prev,
+                  [size]: prev[size] + 1,
+                }));
+              }}
+            >
+              <PlusIcon />
+            </button>
+          </div>
         </div>
       ))}
-      <button className={styles["quantity-submit-button"]} type="submit">
+      <button
+        className={`${styles["button"]} ${styles["submit-button"]}`}
+        disabled={Object.values(quantity).every((value) => value === 0)}
+        type="submit"
+      >
         Add to cart
       </button>
     </form>

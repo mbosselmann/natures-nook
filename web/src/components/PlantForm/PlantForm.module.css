@@ -1,3 +1,13 @@
+.form {
+  padding: 0 1rem;
+}
+
+.sizes-grid {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  padding: 0.5rem 0;
+}
+
 .quantity {
   display: flex;
   justify-content: center;
@@ -12,24 +22,38 @@
   border: none;
   font-family: inherit;
   padding: 0.5rem;
+  background: transparent;
 }
 
-.quantity-button {
+.button {
   background-color: #036666;
   border: none;
   color: #fff;
+  padding: 0.5rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quantity-button {
   width: 2rem;
   height: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem;
   border-radius: 50%;
-  font-weight: 700;
-  cursor: pointer;
 }
 
-.quantity-button:disabled {
-  background-color: #00000090;
+.submit-button {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.button:disabled {
+  background-color: #555252;
   cursor: not-allowed;
+}
+
+.size-name,
+.size-available {
+  font-weight: 700;
 }

@@ -95,18 +95,3 @@ h2 {
   z-index: -1;
   opacity: 0.4;
 }
-
-.sizes-list {
-  margin: 1rem 0;
-}
-
-.sizes-not-available {
-  color: #00000090;
-}
-
-.available-text {
-  color: #000;
-  border-radius: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
