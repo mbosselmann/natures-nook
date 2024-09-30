@@ -1,4 +1,5 @@
 import Header from "./PlantOverview/Header";
+import Modal from "./Modal";
 import OrderButton from "./OrderButton";
 import PlantCard from "./PlantCard";
 import PlantDetails from "./PlantDetails";
@@ -10,6 +11,7 @@ import Search from "./Search";
 
 export {
   Header,
+  Modal,
   OrderButton,
   PlantCard,
   PlantDetails,

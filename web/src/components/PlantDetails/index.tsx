@@ -19,7 +19,11 @@ export default function PlantDetails({ plant }: { plant: Plant }) {
             <ArrowLeftIcon width={30} height={30} color="#000" />
             Back
           </Link>
-          <OrderButton width={40} height={40} />
+          <OrderButton
+            onClick={() => console.log("CLICK!")}
+            width={40}
+            height={40}
+          />
         </div>
         <h1>{plant.name}</h1>
       </header>

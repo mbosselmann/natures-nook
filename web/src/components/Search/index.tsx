@@ -71,7 +71,7 @@ export default function Search({
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles["form"]}>
+    <form onSubmit={handleSubmit}>
       <fieldset className={styles["fieldset"]}>
         <legend className={styles["legend"]}>
           Looking for a specific plant? Search here!

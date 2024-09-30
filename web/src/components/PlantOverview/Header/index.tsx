@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import SearchIcon from "../../../assets/icons/SearchIcon";
 import { SearchParams } from "../../../settings/initialSearchParams";
-import { OrderButton, Search } from "../..";
+import { Modal, OrderButton, Search } from "../..";
 
 type AppHeaderProps = {
   tags: string[];
@@ -25,19 +25,23 @@ export default function Header({
   filteredPlantsLength,
   totalAmountOfPlants,
 }: AppHeaderProps) {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [openSection, setOpenSection] = useState("");
 
-  function handleOpenSearch() {
-    setIsSearchOpen(!isSearchOpen);
+  function handleOpenSearch(section?: "search" | "order") {
+    if (section) {
+      setOpenSection(section);
+    } else {
+      setOpenSection("");
+    }
   }
 
   useEffect(() => {
-    if (isSearchOpen) {
+    if (openSection) {
       document.body.classList.add(styles["no-scroll"]);
     } else {
       document.body.classList.remove(styles["no-scroll"]);
     }
-  }, [isSearchOpen]);
+  }, [openSection]);
 
   return (
     <header className={styles["header"]}>
@@ -49,21 +53,35 @@ export default function Header({
         <button
           className={styles["button"]}
           type="button"
-          onClick={handleOpenSearch}
+          onClick={() =>
+            handleOpenSearch(openSection === "search" ? undefined : "search")
+          }
           aria-label="search plant"
         >
-          <SearchIcon color={isSearchOpen ? "#22577a" : "#007f5f"} />
+          <SearchIcon color={openSection ? "#22577a" : "#007f5f"} />
           Search
         </button>
-        <OrderButton color="#007f5f" width={40} height={40} />
-      </section>
-      {isSearchOpen && (
-        <Search
-          tags={tags}
-          searchParams={searchParams}
-          onFilterPlants={onFilterPlants}
-          onOpenSearch={handleOpenSearch}
+        <OrderButton
+          onClick={() =>
+            handleOpenSearch(openSection === "order" ? undefined : "order")
+          }
+          color="#007f5f"
+          width={40}
+          height={40}
         />
+      </section>
+      {openSection && (
+        <Modal>
+          {openSection === "search" && (
+            <Search
+              tags={tags}
+              searchParams={searchParams}
+              onFilterPlants={onFilterPlants}
+              onOpenSearch={handleOpenSearch}
+            />
+          )}
+          {openSection === "order" && <p>HI!</p>}
+        </Modal>
       )}
     </header>
   );

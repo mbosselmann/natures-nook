@@ -1,0 +1,9 @@
+.modal {
+  padding: 1rem;
+  width: 100%;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 20px 20px #7f917282;
+  max-height: 80vh;
+  overflow-y: auto;
+}
