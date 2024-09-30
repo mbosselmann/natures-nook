@@ -1,0 +1,18 @@
+.order-button {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 60px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #000;
+}
+
+.order-button > svg {
+  margin-left: -5px;
+}
+
+.order-button:hover {
+  filter: drop-shadow(0 5px 4px #22577a60);
+}

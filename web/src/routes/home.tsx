@@ -1,5 +1,5 @@
-import App from "../components/PlantOverview";
+import { PlantOverview } from "../components";
 
 export default function HomePage() {
-  return <App />;
+  return <PlantOverview />;
 }

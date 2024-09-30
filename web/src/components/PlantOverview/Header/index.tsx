@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import styles from "./AppHeader.module.css";
-import SearchIcon from "../../assets/icons/SearchIcon";
-import Search from "../Search";
-import { SearchParams } from "../../settings/initialSearchParams";
+import styles from "./Header.module.css";
+import SearchIcon from "../../../assets/icons/SearchIcon";
+import { SearchParams } from "../../../settings/initialSearchParams";
+import { OrderButton, Search } from "../..";
 
 type AppHeaderProps = {
   tags: string[];
@@ -18,7 +18,7 @@ type AppHeaderProps = {
   totalAmountOfPlants: number;
 };
 
-export default function AppHeader({
+export default function Header({
   tags,
   searchParams,
   onFilterPlants,
@@ -53,7 +53,9 @@ export default function AppHeader({
           aria-label="search plant"
         >
           <SearchIcon color={isSearchOpen ? "#22577a" : "#007f5f"} />
+          Search
         </button>
+        <OrderButton color="#007f5f" width={40} height={40} />
       </section>
       {isSearchOpen && (
         <Search

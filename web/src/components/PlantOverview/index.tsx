@@ -4,9 +4,8 @@ import {
   initialSearchParams,
   SearchParams,
 } from "../../settings/initialSearchParams";
-import { AppHeader, ScrollToTopButton } from "../";
+import { Header, ScrollToTopButton, PlantList } from "../";
 import { usePlants } from "../../hooks/usePlants";
-import PlantList from "../PlantList";
 
 export type Plant = {
   id: number;
@@ -135,7 +134,7 @@ export default function PlantOverview() {
 
   return (
     <main className={styles["main"]}>
-      <AppHeader
+      <Header
         tags={availableTags}
         searchParams={searchParams}
         onFilterPlants={handleFilterPlants}
