@@ -33,7 +33,7 @@ const findAvailableTags = (plants: Plant[]) => {
 export default function PlantOverview() {
   const [searchParams, setSearchParams] =
     useState<SearchParams>(initialSearchParams);
-  const [plants, setFilteredPlants] = usePlants();
+  const { plants, setPlants: setFilteredPlants } = usePlants();
   const { data: filteredPlants, total, limit, page, totalPages } = plants;
   const [loading, setLoading] = useState(false);
   const fetchedPage = useRef<number>(page ?? 0);
@@ -149,7 +149,7 @@ export default function PlantOverview() {
           onUpdatePlantsPage={handleUpdatePlantsPage}
         />
       ) : (
-        <p className={styles["no-results"]}>No results found.</p>
+        <p className={styles["no-results"]}>No plants found.</p>
       )}
       <ScrollToTopButton />
     </main>
