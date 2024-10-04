@@ -10,19 +10,29 @@ export type Catalog = {
   limit: number;
 };
 
-export type ContextType = [
-  plants: Catalog,
-  setPlants: (plants: Catalog | ((prevPlants: Catalog) => Catalog)) => void
-];
+type Order = {
+  plant: Plant;
+  size: string;
+};
+
+export type ContextType = {
+  plants: Catalog;
+  setPlants: (plants: Catalog | ((prevPlants: Catalog) => Catalog)) => void;
+  order: Order[];
+  setOrder: (order: Order[] | ((prevOrder: Order[]) => Order[])) => void;
+};
 
 export const App = () => {
   const catalog = useLoaderData() as Catalog;
   const [plants, setPlants] = useState<Catalog>(catalog);
+  const [order, setOrder] = useState<Order[]>([]);
 
   return (
     <>
       <ScrollRestoration />
-      <Outlet context={[plants, setPlants] satisfies ContextType} />
+      <Outlet
+        context={{ plants, setPlants, order, setOrder } satisfies ContextType}
+      />
     </>
   );
 };
