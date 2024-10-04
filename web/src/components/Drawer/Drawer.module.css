@@ -1,11 +1,11 @@
 .drawer {
   position: absolute;
-  right: -95%;
+  right: -96%;
   z-index: 3;
   background-color: #fff;
   height: 100svh;
   top: 0;
-  width: 95%;
+  width: 96%;
   transition: right 0.5s ease;
   padding: 3rem 1rem;
   box-shadow: 0 0 1em #7f917282;
