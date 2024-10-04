@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import SearchIcon from "../../../assets/icons/SearchIcon";
 import { SearchParams } from "../../../settings/initialSearchParams";
-import { Modal, OrderButton, Search } from "../..";
+import { Cart, Modal, OrderButton, Search } from "../..";
 
 type AppHeaderProps = {
   tags: string[];
@@ -37,9 +37,9 @@ export default function Header({
 
   useEffect(() => {
     if (openSection) {
-      document.body.classList.add(styles["no-scroll"]);
+      document.body.classList.add("no-scroll");
     } else {
-      document.body.classList.remove(styles["no-scroll"]);
+      document.body.classList.remove("no-scroll");
     }
   }, [openSection]);
 
@@ -58,14 +58,16 @@ export default function Header({
           }
           aria-label="search plant"
         >
-          <SearchIcon color={openSection ? "#22577a" : "#007f5f"} />
+          <SearchIcon
+            color={openSection === "search" ? "#22577a" : "#007f5f"}
+          />
           Search
         </button>
         <OrderButton
           onClick={() =>
             handleOpenSearch(openSection === "order" ? undefined : "order")
           }
-          color="#007f5f"
+          color={openSection === "order" ? "#22577a" : "#007f5f"}
           width={40}
           height={40}
         />
@@ -80,7 +82,7 @@ export default function Header({
               onOpenSearch={handleOpenSearch}
             />
           )}
-          {openSection === "order" && <p>HI!</p>}
+          {openSection === "order" && <Cart />}
         </Modal>
       )}
     </header>
