@@ -7,6 +7,8 @@ import {
 import { Header, ScrollToTopButton, PlantList } from "../";
 import { usePlants } from "../../hooks/usePlants";
 
+export type PlantSize = "Small" | "Medium" | "Large" | "Hanging Basket";
+
 export type Plant = {
   id: number;
   scientific_name: string;
@@ -19,8 +21,10 @@ export type Plant = {
   sizes: {
     height: string;
     price: number;
-    size: string;
+    size: PlantSize;
     amount: number;
+    id: number;
+    category: number;
   }[];
   tags: string[];
 };
