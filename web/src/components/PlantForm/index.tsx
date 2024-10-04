@@ -47,7 +47,7 @@ export default function PlantForm({ sizes }: PlantFormProps) {
                 }));
               }}
             >
-              <MinusIcon />
+              <MinusIcon color="#fff" />
             </button>
             <input
               className={styles["quantity-input"]}
@@ -75,7 +75,7 @@ export default function PlantForm({ sizes }: PlantFormProps) {
                 }));
               }}
             >
-              <PlusIcon />
+              <PlusIcon color="white" width={30} height={30} />
             </button>
           </div>
         </div>
