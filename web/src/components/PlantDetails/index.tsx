@@ -4,9 +4,16 @@ import backgroundUrl from "../../assets/plant copy.svg";
 import plantUrl from "../../assets/green-plant.webp";
 import ArrowLeftIcon from "../../assets/icons/ArrowLeftIcon";
 import { Plant } from "../PlantOverview";
-import { OrderButton, PlantForm, ScrollToTopButton } from "..";
+import { Cart, Drawer, OrderButton, PlantForm, ScrollToTopButton } from "..";
+import { useState } from "react";
 
 export default function PlantDetails({ plant }: { plant: Plant }) {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  function handleDrawerOpen() {
+    setIsDrawerOpen(!isDrawerOpen);
+  }
+
   return (
     <main className={styles["main"]}>
       <header className={styles["header"]}>
@@ -19,14 +26,13 @@ export default function PlantDetails({ plant }: { plant: Plant }) {
             <ArrowLeftIcon width={30} height={30} color="#000" />
             Back
           </Link>
-          <OrderButton
-            onClick={() => console.log("CLICK!")}
-            width={40}
-            height={40}
-          />
+          <OrderButton width={40} height={40} onClick={handleDrawerOpen} />
         </div>
         <h1>{plant.name}</h1>
       </header>
+      <Drawer isOpen={isDrawerOpen} onClose={handleDrawerOpen}>
+        <Cart />
+      </Drawer>
       <div className={styles["wave"]}></div>
       <img
         className={styles["plant-image"]}
