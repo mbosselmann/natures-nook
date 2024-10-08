@@ -8,49 +8,9 @@
   padding: 0.5rem 0;
 }
 
-.quantity {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0;
-}
-
-.quantity-input {
-  -webkit-appearance: none;
-  appearance: textfield;
-  text-align: center;
-  border: none;
-  font-family: inherit;
-  padding: 0.5rem;
-  background: transparent;
-}
-
-.button {
-  background-color: #036666;
-  border: none;
-  color: #fff;
-  padding: 0.5rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.quantity-button {
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-}
-
 .submit-button {
   width: 100%;
   border-radius: 0.5rem;
-}
-
-.button:disabled {
-  background-color: #555252;
-  cursor: not-allowed;
 }
 
 .size-name,
