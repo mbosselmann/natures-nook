@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./PlantCard.module.css";
-import plantUrl from "../../assets/plant copy.svg";
-import { Plant } from "../PlantOverview";
+import plantUrl from "../../../assets/plant copy.svg";
+import { Plant } from "..";
 
 const PlantCard = ({ plant }: { plant: Plant }) => {
   return (
