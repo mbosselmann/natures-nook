@@ -1,6 +1,6 @@
 import { Outlet, ScrollRestoration, useLoaderData } from "react-router-dom";
 import { useState } from "react";
-import { Plant } from "./components/PlantOverview";
+import { Plant, PlantSize } from "./components/PlantOverview";
 
 export type Catalog = {
   data: Plant[];
@@ -10,9 +10,14 @@ export type Catalog = {
   limit: number;
 };
 
-type Order = {
-  plant: Plant;
-  size: string;
+export type Order = {
+  name: string;
+  id: number;
+} & {
+  [key in PlantSize]: {
+    amount: number;
+    id: number;
+  };
 };
 
 export type ContextType = {
