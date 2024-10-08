@@ -1,0 +1,25 @@
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.quantity-input {
+  -webkit-appearance: none;
+  appearance: textfield;
+  text-align: center;
+  border: none;
+  font-family: inherit;
+  padding: 0.5rem;
+  background: transparent;
+}
+
+.quantity-button {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
