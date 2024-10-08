@@ -41,7 +41,9 @@ export default function PlantDetails({ plant }: { plant: Plant }) {
         alt={plant.name}
       />
       <h2>{plant.scientific_name}</h2>
-      <PlantForm sizes={plant.sizes} />
+      {plant.sizes.length && (
+        <PlantForm sizes={plant.sizes} name={plant.name} id={plant.id} />
+      )}
       <section className={styles["section"]}>
         <p className={styles["description"]}>{plant.description}</p>
         <div>
