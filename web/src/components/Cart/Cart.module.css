@@ -1,1 +1,9 @@
+.cart {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+}
 
+.list {
+  overflow-y: scroll;
+}
