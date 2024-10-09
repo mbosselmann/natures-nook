@@ -1,6 +1,6 @@
 import { Outlet, ScrollRestoration, useLoaderData } from "react-router-dom";
 import { useState } from "react";
-import { Plant, PlantSize } from "./components/PlantOverview";
+import { Plant, PlantSizeName } from "./components/PlantOverview";
 
 export type Catalog = {
   data: Plant[];
@@ -11,10 +11,10 @@ export type Catalog = {
 };
 
 export type Order = {
-  name: string;
-  id: number;
+  plantName: Plant["name"];
+  catalogId: Plant["id"];
 } & {
-  [key in PlantSize]: {
+  [key in PlantSizeName]: {
     amount: number;
     id: number;
   };
@@ -23,20 +23,20 @@ export type Order = {
 export type ContextType = {
   plants: Catalog;
   setPlants: (plants: Catalog | ((prevPlants: Catalog) => Catalog)) => void;
-  order: Order[];
-  setOrder: (order: Order[] | ((prevOrder: Order[]) => Order[])) => void;
+  orders: Order[];
+  setOrders: (order: Order[] | ((prevOrder: Order[]) => Order[])) => void;
 };
 
 export const App = () => {
   const catalog = useLoaderData() as Catalog;
   const [plants, setPlants] = useState<Catalog>(catalog);
-  const [order, setOrder] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   return (
     <>
       <ScrollRestoration />
       <Outlet
-        context={{ plants, setPlants, order, setOrder } satisfies ContextType}
+        context={{ plants, setPlants, orders, setOrders } satisfies ContextType}
       />
     </>
   );

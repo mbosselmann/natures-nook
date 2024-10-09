@@ -6,12 +6,19 @@ import ArrowLeftIcon from "../../assets/icons/ArrowLeftIcon";
 import { Plant } from "../PlantOverview";
 import { Cart, Drawer, OrderButton, PlantForm, ScrollToTopButton } from "..";
 import { useState } from "react";
+import { Order } from "../../App";
+import { usePlants } from "../../hooks/usePlants";
 
 export default function PlantDetails({ plant }: { plant: Plant }) {
+  const { orders, setOrders } = usePlants();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   function handleDrawerOpen() {
     setIsDrawerOpen(!isDrawerOpen);
+  }
+
+  function handleSubmit(newOrder: Order) {
+    setOrders([...orders, newOrder]);
   }
 
   return (
@@ -42,7 +49,13 @@ export default function PlantDetails({ plant }: { plant: Plant }) {
       />
       <h2>{plant.scientific_name}</h2>
       {plant.sizes.length && (
-        <PlantForm sizes={plant.sizes} name={plant.name} id={plant.id} />
+        <PlantForm
+          type="new"
+          sizes={plant.sizes}
+          name={plant.name}
+          id={plant.id}
+          onSubmit={handleSubmit}
+        />
       )}
       <section className={styles["section"]}>
         <p className={styles["description"]}>{plant.description}</p>
