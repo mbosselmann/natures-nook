@@ -1,53 +1,70 @@
 import styles from "./PlantForm.module.css";
-import { Plant, PlantSize } from "../PlantOverview";
+import { Plant, PlantSize, PlantSizeName } from "../PlantOverview";
 import { useState } from "react";
-import { usePlants } from "../../hooks/usePlants";
 import { Order } from "../../App";
 import { QuantityInput } from "..";
 
-type PlantFormProps = {
-  sizes: Plant["sizes"];
-  name: string;
-  id: number;
-};
+type PlantFormProps =
+  | {
+      type: "new";
+      sizes: Plant["sizes"];
+      name: string;
+      id: number;
+      onSubmit: (newOrder: Order) => void;
+    }
+  | {
+      type: "edit";
+      sizes: Plant["sizes"];
+      onSubmit: (newOrder: Order) => void;
+      order: Order;
+    };
 
 const initialQuantity = (sizes: Plant["sizes"]) => {
   return sizes.reduce(
     (
-      acc: { [key in PlantSize]: { amount: number; id: number } },
-      { size, id }
+      acc: {
+        [key in PlantSizeName]: PlantSize;
+      },
+      { size, id, height, price }
     ) => {
       acc[size] = {
         amount: 0,
         id,
+        height,
+        price,
+        size,
       };
       return acc;
     },
     {
-      Small: { amount: 0, id: 0 },
-      Medium: { amount: 0, id: 0 },
-      Large: { amount: 0, id: 0 },
-      "Hanging Basket": { amount: 0, id: 0 },
+      Small: { amount: 0, id: 0, height: "", price: 0, size: "Small" },
+      Medium: { amount: 0, id: 0, height: "", price: 0, size: "Medium" },
+      Large: { amount: 0, id: 0, height: "", price: 0, size: "Large" },
+      "Hanging Basket": {
+        amount: 0,
+        id: 0,
+        height: "",
+        price: 0,
+        size: "Hanging Basket",
+      },
     }
   );
 };
 
-export default function PlantForm({ sizes, name, id }: PlantFormProps) {
-  const { order, setOrder } = usePlants();
-  const [quantity, setQuantity] = useState<Order>({
-    name,
-    id,
-    ...initialQuantity(sizes),
-  });
+export default function PlantForm(props: PlantFormProps) {
+  const [newOrder, setNewOrder] = useState<Order>(
+    props.type === "new"
+      ? {
+          plantName: props.name,
+          catalogId: props.id,
+          ...initialQuantity(props.sizes),
+        }
+      : props.order
+  );
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setOrder([...order, quantity]);
-  }
-
-  function handleDecrease(size: PlantSize) {
-    if (quantity[size].amount === 0) return;
-    setQuantity((prev) => ({
+  function handleDecrease(size: PlantSizeName) {
+    if (newOrder[size].amount === 0) return;
+    setNewOrder((prev) => ({
       ...prev,
       [size]: {
         ...prev[size],
@@ -56,8 +73,8 @@ export default function PlantForm({ sizes, name, id }: PlantFormProps) {
     }));
   }
 
-  function handleIncrease(size: PlantSize) {
-    setQuantity((prev) => ({
+  function handleIncrease(size: PlantSizeName) {
+    setNewOrder((prev) => ({
       ...prev,
       [size]: {
         ...prev[size],
@@ -66,9 +83,28 @@ export default function PlantForm({ sizes, name, id }: PlantFormProps) {
     }));
   }
 
+  function handleChange(size: PlantSizeName, value: string) {
+    setNewOrder((prev) => ({
+      ...prev,
+      [size]: {
+        ...prev[size],
+        amount: parseInt(value),
+      },
+    }));
+  }
+
+  function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    props.onSubmit(newOrder);
+  }
+
+  const hasNewOrderSizesWithAmount = Object.values(newOrder)
+    .filter((value) => typeof value === "object")
+    .every((value) => value?.amount === 0);
+
   return (
     <form className={styles["form"]} onSubmit={handleSubmit}>
-      {sizes.map(({ size, amount, height, price }) => (
+      {props.sizes.map(({ size, amount, height, price }) => (
         <div className={styles["sizes-grid"]} key={size}>
           <label htmlFor={size}>
             <span className={styles["size-name"]}>{size}</span>
@@ -83,19 +119,22 @@ export default function PlantForm({ sizes, name, id }: PlantFormProps) {
           <QuantityInput
             onIncrease={() => handleIncrease(size)}
             onDecrease={() => handleDecrease(size)}
-            quantity={quantity}
+            onChange={(value) => handleChange(size, value)}
+            quantity={newOrder}
             size={size}
             amount={amount}
           />
         </div>
       ))}
-      <button
-        className={`button ${styles["submit-button"]}`}
-        disabled={Object.values(quantity).every((value) => value === 0)}
-        type="submit"
-      >
-        Add to cart
-      </button>
+      {props.type === "new" && (
+        <button
+          className={`button ${styles["submit-button"]}`}
+          disabled={hasNewOrderSizesWithAmount}
+          type="submit"
+        >
+          Add to cart
+        </button>
+      )}
     </form>
   );
 }
