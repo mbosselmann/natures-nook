@@ -1,15 +1,16 @@
 import { Order } from "../../App";
 import MinusIcon from "../../assets/icons/MinusIcon";
 import PlusIcon from "../../assets/icons/PlusIcon";
-import { PlantSize } from "../PlantOverview";
+import { PlantSizeName } from "../PlantOverview";
 import styles from "./QuantityInput.module.css";
 
 type QuantityInputProps = {
   onDecrease: () => void;
   onIncrease: () => void;
   quantity: Order;
-  size: PlantSize;
+  size: PlantSizeName;
   amount: number;
+  onChange: (value: string) => void;
 };
 
 export default function QuantityInput({
@@ -18,6 +19,7 @@ export default function QuantityInput({
   quantity,
   size,
   amount,
+  onChange,
 }: QuantityInputProps) {
   return (
     <div className={styles["quantity"]}>
@@ -37,6 +39,7 @@ export default function QuantityInput({
         min="0"
         max={amount}
         value={quantity[size].amount}
+        onChange={(event) => onChange(event.target.value)}
       />
       <button
         className={`button ${styles["quantity-button"]}`}
