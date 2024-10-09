@@ -9,7 +9,15 @@ import { usePlants } from "../../hooks/usePlants";
 import PlantList from "./PlantList";
 import Header from "./Header";
 
-export type PlantSize = "Small" | "Medium" | "Large" | "Hanging Basket";
+export type PlantSizeName = "Small" | "Medium" | "Large" | "Hanging Basket";
+
+export type PlantSize = {
+  height: string;
+  price: number;
+  size: PlantSizeName;
+  amount: number;
+  id: number;
+};
 
 export type Plant = {
   id: number;
@@ -20,14 +28,7 @@ export type Plant = {
   light_requirements: string[];
   water_requirements: string;
   care_level: string;
-  sizes: {
-    height: string;
-    price: number;
-    size: PlantSize;
-    amount: number;
-    id: number;
-    category: number;
-  }[];
+  sizes: PlantSize[];
   tags: string[];
 };
 
