@@ -1,8 +1,11 @@
-import { Order } from "../../App";
+import styles from "./QuantityInput.module.css";
+import buttonStyles from "../Buttons/Button.module.css";
+
 import MinusIcon from "../../assets/icons/MinusIcon";
 import PlusIcon from "../../assets/icons/PlusIcon";
+
 import { PlantSizeName } from "../PlantOverview";
-import styles from "./QuantityInput.module.css";
+import { Order } from "../../App";
 
 type QuantityInputProps = {
   onDecrease: () => void;
@@ -24,7 +27,7 @@ export default function QuantityInput({
   return (
     <div className={styles["quantity"]}>
       <button
-        className={`button ${styles["quantity-button"]}`}
+        className={`${buttonStyles["button"]} ${styles["quantity-button"]}`}
         type="button"
         disabled={quantity[size].amount <= 0}
         onClick={onDecrease}
@@ -42,7 +45,7 @@ export default function QuantityInput({
         onChange={(event) => onChange(event.target.value)}
       />
       <button
-        className={`button ${styles["quantity-button"]}`}
+        className={`${buttonStyles["button"]} ${styles["quantity-button"]}`}
         type="button"
         disabled={quantity[size].amount >= amount}
         onClick={onIncrease}

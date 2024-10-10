@@ -1,4 +1,5 @@
 import styles from "./PlantForm.module.css";
+import buttonStyles from "../Buttons/Button.module.css";
 import { Plant, PlantSize, PlantSizeName } from "../PlantOverview";
 import { useState } from "react";
 import { Order } from "../../App";
@@ -128,7 +129,7 @@ export default function PlantForm(props: PlantFormProps) {
       ))}
       {props.type === "new" && (
         <button
-          className={`button ${styles["submit-button"]}`}
+          className={`${buttonStyles["button"]} ${styles["submit-button"]}`}
           disabled={hasNewOrderSizesWithAmount}
           type="submit"
         >
