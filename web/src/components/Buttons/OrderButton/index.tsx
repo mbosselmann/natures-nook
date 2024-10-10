@@ -1,4 +1,6 @@
 import styles from "./OrderButtton.module.css";
+import buttonStyles from "../Button.module.css";
+
 import OrderIcon from "../../../assets/icons/OrderIcon";
 
 type OrderButtonProps = {
@@ -15,7 +17,11 @@ export default function OrderButton({
   onClick,
 }: OrderButtonProps) {
   return (
-    <button type="button" className={styles["order-button"]} onClick={onClick}>
+    <button
+      type="button"
+      className={`${buttonStyles["button"]} ${styles["order-button"]}`}
+      onClick={onClick}
+    >
       <OrderIcon width={width} height={height} color={color} />
       Basket
     </button>

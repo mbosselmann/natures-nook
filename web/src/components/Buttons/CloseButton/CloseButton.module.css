@@ -1,6 +1,5 @@
 .close-button {
   transform: rotate(45deg);
-  background-color: #036666;
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -10,7 +9,6 @@
   padding-top: 0.2rem;
   display: grid;
   place-items: center;
-  border: none;
 }
 
 .close-button:hover {
