@@ -4,10 +4,10 @@ import {
   initialSearchParams,
   SearchParams,
 } from "../../settings/initialSearchParams";
-import { ScrollToTopButton } from "../";
 import { usePlants } from "../../hooks/usePlants";
 import PlantList from "./PlantList";
 import Header from "./Header";
+import { ScrollToTopButton } from "../Buttons";
 
 export type PlantSizeName = "Small" | "Medium" | "Large" | "Hanging Basket";
 

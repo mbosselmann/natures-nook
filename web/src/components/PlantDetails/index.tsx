@@ -4,10 +4,11 @@ import backgroundUrl from "../../assets/plant copy.svg";
 import plantUrl from "../../assets/green-plant.webp";
 import ArrowLeftIcon from "../../assets/icons/ArrowLeftIcon";
 import { Plant } from "../PlantOverview";
-import { Cart, Drawer, OrderButton, PlantForm, ScrollToTopButton } from "..";
+import { Cart, Drawer, PlantForm } from "..";
 import { useState } from "react";
 import { Order } from "../../App";
 import { usePlants } from "../../hooks/usePlants";
+import { OrderButton, ScrollToTopButton } from "../Buttons";
 
 export default function PlantDetails({ plant }: { plant: Plant }) {
   const { orders, setOrders } = usePlants();

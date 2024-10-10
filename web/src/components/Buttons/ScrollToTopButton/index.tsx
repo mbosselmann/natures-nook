@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./ScrollToTopButton.module.css";
-import ArrowUpIcon from "../../assets/icons/ArrowUpIcon";
+import ArrowUpIcon from "../../../assets/icons/ArrowUpIcon";
 
 export default function ScrollToTopButton() {
   const [showScrollToTop, setShowScrollToTop] = useState(false);

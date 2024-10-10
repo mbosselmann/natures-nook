@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import SearchIcon from "../../../assets/icons/SearchIcon";
 import { SearchParams } from "../../../settings/initialSearchParams";
-import { Cart, Modal, OrderButton, Search } from "../..";
+import { Cart, Modal, Search } from "../..";
+import { OrderButton } from "../../Buttons";
 
 type AppHeaderProps = {
   tags: string[];

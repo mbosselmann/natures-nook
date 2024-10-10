@@ -1,5 +1,5 @@
 import styles from "./OrderButtton.module.css";
-import OrderIcon from "../../assets/icons/OrderIcon";
+import OrderIcon from "../../../assets/icons/OrderIcon";
 
 type OrderButtonProps = {
   color?: string;
