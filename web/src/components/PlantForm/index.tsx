@@ -4,8 +4,11 @@ import { Plant, PlantSize, PlantSizeName } from "../PlantOverview";
 import { useState } from "react";
 import { Order } from "../../App";
 import { QuantityInput } from "..";
+import Label from "./Label";
 
-type PlantFormProps =
+type ActionType = "increase" | "decrease" | "change";
+
+export type PlantFormProps =
   | {
       type: "new";
       sizes: Plant["sizes"];
@@ -63,35 +66,36 @@ export default function PlantForm(props: PlantFormProps) {
       : props.order
   );
 
-  function handleDecrease(size: PlantSizeName) {
-    if (newOrder[size].amount === 0) return;
-    setNewOrder((prev) => ({
-      ...prev,
-      [size]: {
-        ...prev[size],
-        amount: prev[size].amount - 1,
-      },
-    }));
-  }
+  function handleAmountChange(
+    size: PlantSizeName,
+    action: ActionType,
+    value?: string
+  ) {
+    setNewOrder((prev) => {
+      const currentAmount = prev[size].amount;
+      let newAmount = currentAmount;
 
-  function handleIncrease(size: PlantSizeName) {
-    setNewOrder((prev) => ({
-      ...prev,
-      [size]: {
-        ...prev[size],
-        amount: prev[size].amount + 1,
-      },
-    }));
-  }
+      if (action === "increase") {
+        newAmount = currentAmount + 1;
+      }
 
-  function handleChange(size: PlantSizeName, value: string) {
-    setNewOrder((prev) => ({
-      ...prev,
-      [size]: {
-        ...prev[size],
-        amount: parseInt(value),
-      },
-    }));
+      if (action === "decrease") {
+        if (currentAmount === 0) return prev;
+        newAmount = currentAmount - 1;
+      }
+
+      if (action === "change" && value !== undefined) {
+        newAmount = parseInt(value);
+      }
+
+      return {
+        ...prev,
+        [size]: {
+          ...prev[size],
+          amount: newAmount,
+        },
+      };
+    });
   }
 
   function handleSubmit(event: React.FormEvent) {
@@ -107,20 +111,17 @@ export default function PlantForm(props: PlantFormProps) {
     <form className={styles["form"]} onSubmit={handleSubmit}>
       {props.sizes.map(({ size, amount, height, price }) => (
         <div className={styles["sizes-grid"]} key={size}>
-          <label htmlFor={size}>
-            <span className={styles["size-name"]}>{size}</span>
-            <br />
-            {height}
-            <br />€ {price}
-            <br />
-            <span className={styles["size-available"]}>
-              {amount === 0 ? "Not available" : amount + " available"}
-            </span>
-          </label>
+          <Label
+            type={props.type}
+            size={size}
+            amount={amount}
+            height={height}
+            price={price}
+          />
           <QuantityInput
-            onIncrease={() => handleIncrease(size)}
-            onDecrease={() => handleDecrease(size)}
-            onChange={(value) => handleChange(size, value)}
+            onIncrease={() => handleAmountChange(size, "increase")}
+            onDecrease={() => handleAmountChange(size, "decrease")}
+            onChange={(value) => handleAmountChange(size, "change", value)}
             quantity={newOrder}
             size={size}
             amount={amount}
