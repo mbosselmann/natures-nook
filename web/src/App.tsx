@@ -1,6 +1,6 @@
 import { Outlet, ScrollRestoration, useLoaderData } from "react-router-dom";
 import { useState } from "react";
-import { Plant, PlantSizeName } from "./components/PlantOverview";
+import { Plant, PlantSize, PlantSizeName } from "./components/PlantOverview";
 
 export type Catalog = {
   data: Plant[];
@@ -14,10 +14,7 @@ export type CartItem = {
   plantName: Plant["name"];
   catalogId: Plant["id"];
 } & {
-  [key in PlantSizeName]: {
-    amount: number;
-    id: number;
-  };
+  [key in PlantSizeName]: PlantSize;
 };
 
 export type ContextType = {
