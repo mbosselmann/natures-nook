@@ -1,3 +1,7 @@
+.label {
+  display: grid;
+}
+
 .size-name,
 .size-available {
   font-weight: 700;

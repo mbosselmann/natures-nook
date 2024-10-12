@@ -1,25 +1,30 @@
+import { useState } from "react";
+
 import styles from "./PlantDetails.module.css";
+
 import { Link } from "react-router-dom";
+import { usePlants } from "../../hooks/usePlants";
+
+import { Cart, Drawer, PlantForm } from "..";
+import { OrderButton, ScrollToTopButton } from "../Buttons";
+
 import backgroundUrl from "../../assets/plant copy.svg";
 import plantUrl from "../../assets/green-plant.webp";
 import ArrowLeftIcon from "../../assets/icons/ArrowLeftIcon";
+
+import { CartItem } from "../../App";
 import { Plant } from "../PlantOverview";
-import { Cart, Drawer, PlantForm } from "..";
-import { useState } from "react";
-import { Order } from "../../App";
-import { usePlants } from "../../hooks/usePlants";
-import { OrderButton, ScrollToTopButton } from "../Buttons";
 
 export default function PlantDetails({ plant }: { plant: Plant }) {
-  const { orders, setOrders } = usePlants();
+  const { cartItems, setCartItems } = usePlants();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   function handleDrawerOpen() {
     setIsDrawerOpen(!isDrawerOpen);
   }
 
-  function handleSubmit(newOrder: Order) {
-    setOrders([...orders, newOrder]);
+  function handleSubmit(newOrder: CartItem) {
+    setCartItems([...cartItems, newOrder]);
   }
 
   return (
@@ -51,7 +56,6 @@ export default function PlantDetails({ plant }: { plant: Plant }) {
       <h2>{plant.scientific_name}</h2>
       {plant.sizes.length && (
         <PlantForm
-          type="new"
           sizes={plant.sizes}
           name={plant.name}
           id={plant.id}

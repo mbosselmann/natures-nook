@@ -17,6 +17,7 @@ export type PlantSize = {
   size: PlantSizeName;
   amount: number;
   id: number;
+  available: number;
 };
 
 export type Plant = {

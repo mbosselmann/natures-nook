@@ -5,23 +5,25 @@ import MinusIcon from "../../assets/icons/MinusIcon";
 import PlusIcon from "../../assets/icons/PlusIcon";
 
 import { PlantSizeName } from "../PlantOverview";
-import { Order } from "../../App";
+import { CartItem } from "../../App";
 
 type QuantityInputProps = {
   onDecrease: () => void;
   onIncrease: () => void;
-  quantity: Order;
+  item: CartItem;
   size: PlantSizeName;
   amount: number;
+  available: number;
   onChange: (value: string) => void;
 };
 
 export default function QuantityInput({
   onDecrease,
   onIncrease,
-  quantity,
+  item,
   size,
   amount,
+  available,
   onChange,
 }: QuantityInputProps) {
   return (
@@ -29,7 +31,7 @@ export default function QuantityInput({
       <button
         className={`${buttonStyles["button"]} ${styles["quantity-button"]}`}
         type="button"
-        disabled={quantity[size].amount <= 0}
+        disabled={item[size].amount <= 0}
         onClick={onDecrease}
       >
         <MinusIcon color="#fff" />
@@ -41,13 +43,13 @@ export default function QuantityInput({
         name={size}
         min="0"
         max={amount}
-        value={quantity[size].amount}
+        value={item[size].amount}
         onChange={(event) => onChange(event.target.value)}
       />
       <button
         className={`${buttonStyles["button"]} ${styles["quantity-button"]}`}
         type="button"
-        disabled={quantity[size].amount >= amount}
+        disabled={item[size].amount >= available}
         onClick={onIncrease}
       >
         <PlusIcon color="white" width={30} height={30} />
