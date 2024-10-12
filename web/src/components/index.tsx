@@ -2,7 +2,7 @@ import Cart from "./Cart";
 import Drawer from "./Drawer";
 import Modal from "./Modal";
 import PlantDetails from "./PlantDetails";
-import PlantForm from "./PlantForm";
+import PlantForm from "./PlantDetails/PlantForm";
 import PlantOverview from "./PlantOverview";
 import QuantityInput from "./QuantityInput";
 import Search from "./Search";
