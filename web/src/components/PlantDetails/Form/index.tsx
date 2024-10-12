@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import styles from "./Form.module.css";
-import buttonStyles from "../../Buttons/Button.module.css";
 
 import Label from "./Label";
+import { SubmitButton } from "../../Buttons";
 import { QuantityInput } from "../..";
 
 import { CartItem } from "../../../App";
@@ -63,12 +63,9 @@ export default function Form(props: FormProps) {
     props.onSubmit(newCartItem);
   }
 
-  const hasNewOrderSizesWithAmount = Object.values(newCartItem)
+  const hasNewCartItemSizesWithAmount = Object.values(newCartItem)
     .filter((value) => typeof value === "object")
     .every((value) => value?.amount === 0);
-
-  console.log(props.sizes);
-  console.log(newCartItem);
 
   return (
     <form className={styles["form"]} onSubmit={handleSubmit}>
@@ -92,13 +89,10 @@ export default function Form(props: FormProps) {
           </li>
         ))}
       </ul>
-      <button
-        className={`${buttonStyles["button"]} ${styles["submit-button"]}`}
-        disabled={hasNewOrderSizesWithAmount}
-        type="submit"
-      >
-        Add to cart
-      </button>
+      <SubmitButton
+        isDisabled={hasNewCartItemSizesWithAmount}
+        text="Add to cart"
+      />
     </form>
   );
 }
