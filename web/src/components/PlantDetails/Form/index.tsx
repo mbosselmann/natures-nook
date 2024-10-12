@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import styles from "./PlantForm.module.css";
+import styles from "./Form.module.css";
 import buttonStyles from "../../Buttons/Button.module.css";
 
 import Label from "./Label";
@@ -12,14 +12,14 @@ import { initialQuantity } from "../../../settings/initialQuantitiy";
 
 type ActionType = "increase" | "decrease" | "change";
 
-type PlantFormProps = {
+type FormProps = {
   sizes: Plant["sizes"];
   name: string;
   id: number;
   onSubmit: (newCartItem: CartItem) => void;
 };
 
-export default function PlantForm(props: PlantFormProps) {
+export default function Form(props: FormProps) {
   const [newCartItem, setNewCartItem] = useState<CartItem>({
     plantName: props.name,
     catalogId: props.id,
@@ -67,14 +67,17 @@ export default function PlantForm(props: PlantFormProps) {
     .filter((value) => typeof value === "object")
     .every((value) => value?.amount === 0);
 
+  console.log(props.sizes);
+  console.log(newCartItem);
+
   return (
     <form className={styles["form"]} onSubmit={handleSubmit}>
       <ul>
-        {props.sizes.map(({ size, amount, height, price, available }) => (
+        {props.sizes.map(({ size, height, price, amount }) => (
           <li className={styles["sizes-grid"]} key={size}>
             <Label
               size={size}
-              available={available}
+              available={amount}
               height={height}
               price={price}
             />
@@ -82,10 +85,9 @@ export default function PlantForm(props: PlantFormProps) {
               onIncrease={() => handleAmountChange(size, "increase")}
               onDecrease={() => handleAmountChange(size, "decrease")}
               onChange={(value) => handleAmountChange(size, "change", value)}
-              item={newCartItem}
               size={size}
-              amount={amount}
-              available={available}
+              amount={newCartItem[size].amount}
+              available={newCartItem[size].available}
             />
           </li>
         ))}
