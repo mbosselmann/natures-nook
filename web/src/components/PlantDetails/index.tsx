@@ -5,8 +5,9 @@ import styles from "./PlantDetails.module.css";
 import { Link } from "react-router-dom";
 import { usePlants } from "../../hooks/usePlants";
 
-import { Cart, Drawer, PlantForm } from "..";
+import Form from "./Form";
 import { OrderButton, ScrollToTopButton } from "../Buttons";
+import { Cart, Drawer } from "..";
 
 import backgroundUrl from "../../assets/plant copy.svg";
 import plantUrl from "../../assets/green-plant.webp";
@@ -55,7 +56,7 @@ export default function PlantDetails({ plant }: { plant: Plant }) {
       />
       <h2>{plant.scientific_name}</h2>
       {plant.sizes.length && (
-        <PlantForm
+        <Form
           sizes={plant.sizes}
           name={plant.name}
           id={plant.id}
