@@ -3,20 +3,22 @@ import { usePlants } from "../../hooks/usePlants";
 import Item from "./Item";
 
 export default function Cart() {
-  const { orders } = usePlants();
+  const { cartItems } = usePlants();
 
   return (
-    <div className={styles["cart"]}>
+    <div className={styles[cartItems.length && "cart"]}>
       <h2>Shopping Cart</h2>
-      {orders.length ? (
+      {cartItems.length ? (
         <>
-          <ul className={styles["list"]}>
-            {orders.map((plant) => (
-              <li key={plant.catalogId}>
-                <Item plant={plant} />
-              </li>
-            ))}
-          </ul>
+          <form>
+            <ul className={styles["list"]}>
+              {cartItems.map((item) => (
+                <li key={item.catalogId}>
+                  <Item item={item} />
+                </li>
+              ))}
+            </ul>
+          </form>
           <p>Total: SUM</p>
         </>
       ) : (
