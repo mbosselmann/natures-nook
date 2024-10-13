@@ -1,6 +1,10 @@
+import styles from "./Item.module.css";
+
 import { Link } from "react-router-dom";
-import { PlantSize } from "../../PlantOverview";
+
 import QuantityInput from "../../QuantityInput";
+
+import { PlantSize } from "../../PlantOverview";
 import { CartItem } from "../../../App";
 
 export default function Item({ item }: { item: CartItem }) {
@@ -17,24 +21,33 @@ export default function Item({ item }: { item: CartItem }) {
   }
 
   return (
-    <fieldset>
-      <legend>
-        <Link to={`/plant/${item.catalogId}`}>{item.plantName}</Link>
+    <fieldset className={styles["fieldset"]}>
+      <legend className={styles["legend"]}>
+        <Link to={`/plant/${item.catalogId}`} className={styles["link"]}>
+          {item.plantName}
+        </Link>
       </legend>
       <ul>
         {sizes.map(({ size, id, height, price, amount, available }) => (
-          <li key={id}>
-            <label>
-              {size} {price} {height} {available}
+          <li className={styles["item"]} key={id}>
+            <label className={styles["label"]}>
+              <ul className={styles["list"]}>
+                <li>{size}</li>
+                <li>{height}</li>
+                <li>{available} available</li>
+              </ul>
             </label>
-            <QuantityInput
-              onDecrease={() => changeAmount(size, "decrease")}
-              onIncrease={() => changeAmount(size, "increase")}
-              size={size}
-              amount={amount}
-              available={available}
-              onChange={(value) => changeAmount(size, "change", value)}
-            />
+            <div>
+              <QuantityInput
+                onDecrease={() => changeAmount(size, "decrease")}
+                onIncrease={() => changeAmount(size, "increase")}
+                size={size}
+                amount={amount}
+                available={available}
+                onChange={(value) => changeAmount(size, "change", value)}
+              />
+              <p className={styles["price"]}> € {price}</p>
+            </div>
           </li>
         ))}
       </ul>

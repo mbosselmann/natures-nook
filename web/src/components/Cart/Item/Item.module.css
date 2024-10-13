@@ -1,0 +1,37 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fieldset {
+  border: none;
+}
+
+.link {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #000;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.label {
+  display: grid;
+}
+
+.list > :first-child {
+  font-weight: 700;
+}
+
+.list > :last-child {
+  font-size: 0.8rem;
+}
+
+.price {
+  font-weight: 700;
+  text-align: end;
+}

@@ -2,8 +2,5 @@
   height: 100%;
   display: grid;
   grid-template-rows: 3rem auto 3rem;
-}
-
-.list {
-  overflow-y: scroll;
+  max-height: 100svh;
 }

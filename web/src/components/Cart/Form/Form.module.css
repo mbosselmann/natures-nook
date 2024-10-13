@@ -1,0 +1,24 @@
+.list {
+  height: 75svh;
+  padding: 1rem;
+  overflow-y: scroll;
+}
+
+.item {
+  padding: 1rem 0;
+}
+
+.item:not(:last-child) {
+  border-bottom: 3px solid #7f917282;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 1rem 1rem;
+  align-items: end;
+}
+
+.price {
+  font-weight: 700;
+}
